@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {   
-        // 플레이어 이동
+        // 플레이어 이동 (WASD)
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
 
