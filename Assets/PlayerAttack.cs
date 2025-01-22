@@ -13,9 +13,13 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0)) // 좌클릭 시 공격
         {
             PlayerAttackMethod();
+        }
+        else if (Input.GetMouseButton(1)) // 우클릭 시 스킬
+        {
+            PlayerSkillAttack();
         }
         else
         {
@@ -24,8 +28,17 @@ public class PlayerAttack : MonoBehaviour
     }
 
     void PlayerAttackMethod()
+    {   
+        // 평타 모션
+        animator.SetBool("Attack", true); 
+        animator.SetFloat("AttackState", 0);
+    }
+
+    void PlayerSkillAttack()
     {
+        // 스킬 모션
         animator.SetBool("Attack", true);
+        animator.SetFloat("AttackState", 1);
     }
 }
 
