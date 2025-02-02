@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float playerDamage = 1f;
+    public float playerDamage;
+    public float playerSkillDamage;
     private Animator animator;
     void Awake()
     {

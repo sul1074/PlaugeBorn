@@ -369,6 +369,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputVec: {x: 0, y: 0}
   playerSpeed: 3
+  dashSpeed: 6
+  dashDuration: 0.1
+  playerHealth: 10
 --- !u!50 &927001115
 Rigidbody2D:
   serializedVersion: 4
@@ -409,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDamage: 1
+  playerSkillDamage: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

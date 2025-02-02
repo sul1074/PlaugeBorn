@@ -6,11 +6,12 @@ public class Player : MonoBehaviour
 {
     public Vector2 inputVec;
     Rigidbody2D rigid;
-    public float playerSpeed;
+    public float playerSpeed; // 이동 속도
     private Animator animator;
     public float dashSpeed; // 대쉬 속도
     public float dashDuration; // 대쉬 지속 시간
     private bool isDashing; // 대쉬 여부
+    public float playerHealth; // 플레이어 체력
 
     void Awake()
     {
@@ -20,6 +21,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {   
+        if (playerHealth <= 0) {
+            Die();
+            return;
+        }
+
         if (!isDashing)
         {
             // 플레이어 이동 (WASD)
@@ -71,5 +77,13 @@ public class Player : MonoBehaviour
             yield return null;
         }
         isDashing = false;
+    }
+
+    void Die()
+    {
+        isDashing = false;
+        animator.SetTrigger("Die");
+        rigid.velocity = Vector2.zero; // 움직임 정지지
+        this.enabled = false; // 조작 비활성화
     }
 }
