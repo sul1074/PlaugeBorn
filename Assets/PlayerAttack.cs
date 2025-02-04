@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float playerDamage;
-    public float playerSkillDamage;
+    [SerializeField] private float playerDamage;
+    [SerializeField] private float playerSkillDamage;
     private Animator animator;
     void Awake()
     {
@@ -33,6 +33,8 @@ public class PlayerAttack : MonoBehaviour
         // 평타 모션
         animator.SetBool("Attack", true); 
         animator.SetFloat("AttackState", 0);
+
+        
     }
 
     void PlayerSkillAttack()

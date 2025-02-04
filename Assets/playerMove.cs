@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Vector2 inputVec;
+    [SerializeField] private Vector2 inputVec;
     Rigidbody2D rigid;
-    public float playerSpeed; // 이동 속도
+    [SerializeField] private float playerSpeed; // 이동 속도
     private Animator animator;
-    public float dashSpeed; // 대쉬 속도
-    public float dashDuration; // 대쉬 지속 시간
+    [SerializeField] private float dashSpeed; // 대쉬 속도
+    [SerializeField] private float dashDuration; // 대쉬 지속 시간
     private bool isDashing; // 대쉬 여부
-    public float playerHealth; // 플레이어 체력
+    [SerializeField] private float playerHealth; // 플레이어 체력
 
     void Awake()
     {
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     void Update()
     {   
         if (playerHealth <= 0) {
-            Die();
+            Die();  
             return;
         }
 
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         Vector2 dashDirection = inputVec.normalized;
         if (dashDirection == Vector2.zero)
         {
-            dashDirection = Vector2.right * Mathf.Sign(transform.localScale.x); // 일단 뒤로 가는 방향으로 설정해뒀어요
+            dashDirection = Vector2.left * Mathf.Sign(transform.localScale.x); 
         }
 
         float startTime = Time.time;
