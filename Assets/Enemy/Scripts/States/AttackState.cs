@@ -12,12 +12,7 @@ public class AttackState : IEnemyState
     {
         enemy.Animator.PlayAnimation(4);
 
-        if (!enemy.IsPlayerInAttackRange())
-        {
-            enemy.ChangeState(new MoveState());
-        }
-        // Test Code
-        enemy.ChangeState(new StunState());
+        enemy.ChangeState(new IdleState());
     }
     public void ExitState(IEnemyAI enemy)
     {
