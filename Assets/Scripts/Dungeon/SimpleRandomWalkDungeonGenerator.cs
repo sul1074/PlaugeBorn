@@ -11,7 +11,7 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
 
     protected override void RunProceduralGeneration()
     {
-        HashSet<Vector2Int> floorPostioins = RunRandomWalk(); // walkLength만큼 iterations(반복)한 random하게 walk한 경로를 생성 
+        HashSet<Vector2Int> floorPostioins = RunRandomWalk(randomWalkParameters); // walkLength만큼 iterations(반복)한 random하게 walk한 경로를 생성 
 
         tilemapVisualizer.Clear(); // 맵 생성 전에, 타일맵 초기화
         tilemapVisualizer.PaintFloorTiles(floorPostioins); // random하게 walk한 경로에 타일을 그려서 던전을 시각화
@@ -19,14 +19,14 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
     }
 
     // walkLength만큼 walk하는 과정을 iterations 만큼 반복한 경로 집합을 반환.
-    protected HashSet<Vector2Int> RunRandomWalk()
+    protected HashSet<Vector2Int> RunRandomWalk(SimpleRandomWalkSO parameters)
     {
-        Vector2Int curr = startPos;
+        Vector2Int curr = base.startPos;
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>(); // 이때까지 walk한 경로를 저장
 
-        for (int i = 0; i < randomWalkParameters.iterations; i++)
+        for (int i = 0; i < parameters.iterations; i++)
         {
-            HashSet<Vector2Int> path = ProceduralGenerationAlgo.SimpleRandomWalk(curr, randomWalkParameters.walkLength); // curr을 시작으로 walkLength만큼 walk
+            HashSet<Vector2Int> path = ProceduralGenerationAlgo.SimpleRandomWalk(curr, parameters.walkLength); // curr을 시작으로 walkLength만큼 walk
             floorPositions.UnionWith(path); // curr에서 walk한 경로를 추가. UnionWith 함수를 통해 중복된 경로는 제거됨
 
             /* 
@@ -37,7 +37,7 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
              * 반대로 startRandomlyEachIteration 비활성화 시, 처음 시작점을 기준으로 모든 walk가 진행
              * 따라서 한 지점에서 뻗어나간, 시작점(중앙) 기준으로 집중된 형태의 던전이 생성
              */
-            if (randomWalkParameters.startRandomlyEachIteration)
+            if (parameters.startRandomlyEachIteration)
                 curr = floorPositions.ElementAt(UnityEngine.Random.Range(0, floorPositions.Count)); 
         }
 
