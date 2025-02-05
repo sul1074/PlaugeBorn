@@ -6,8 +6,11 @@ using UnityEngine.Tilemaps;
 
 public class TilemapVisualizer : MonoBehaviour
 {
-    [SerializeField] private Tilemap floorTilemap;
-    [SerializeField] private TileBase floorTile; // 바닥에 그릴 타일맵
+    [SerializeField] private Tilemap floorTilemap; // 던전 바닥을 그릴 타일맵
+    [SerializeField] private Tilemap wallTilemap; // 던전 벽을 그릴 타일맵
+
+    [SerializeField] private TileBase floorTile; // 던전 바닥에 배치할 타일
+    [SerializeField] private TileBase wallTile; // 던전 벽에 배치할 타일
 
     /// <summary>
     /// floorPositions에 담긴 좌표들에 타일을 그리도록 하는 함수. 외부에서 좌표 집합만 가지고 호출할 수 있도록 하기 위해 모듈화
@@ -43,6 +46,10 @@ public class TilemapVisualizer : MonoBehaviour
         Vector3Int tilePos = tilemap.WorldToCell((Vector3Int)pos);
         tilemap.SetTile(tilePos, tile);
     }
+    internal void PaintSingleWallTile(Vector2Int pos)
+    {
+        PaintSingleTile(wallTilemap, wallTile, pos);
+    }
 
     /// <summary>
     /// 타일맵에 그린 모든 타일을 제거하는 함수
@@ -50,5 +57,6 @@ public class TilemapVisualizer : MonoBehaviour
     public void Clear()
     {
         floorTilemap.ClearAllTiles();
+        wallTilemap.ClearAllTiles();
     }
 }
