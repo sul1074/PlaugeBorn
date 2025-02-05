@@ -2227,6 +2227,7 @@ GameObject:
   - component: {fileID: 3464542154205614278}
   - component: {fileID: 313450311315117390}
   - component: {fileID: 1104926036004327633}
+  - component: {fileID: 966404144307187508}
   - component: {fileID: -2151845023434844436}
   m_Layer: 5
   m_Name: SwordMan
@@ -2287,10 +2288,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputVec: {x: 0, y: 0}
-  playerSpeed: 3
   dashSpeed: 6
   dashDuration: 0.2
-  playerHealth: 10
 --- !u!114 &1104926036004327633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2303,8 +2302,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a29fe1299e82a47bb85d5c7656768c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &966404144307187508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5339246102110784747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0858199bfe98f3d4e96f3e1a516ec4f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   playerDamage: 1
   playerSkillDamage: 1
+  playerSpeed: 2
+  playerHealth: 10
 --- !u!50 &-2151845023434844436
 Rigidbody2D:
   serializedVersion: 4

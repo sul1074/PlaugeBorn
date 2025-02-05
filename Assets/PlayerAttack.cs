@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private float playerDamage;
-    [SerializeField] private float playerSkillDamage;
+    private Stat stat;
     private Animator animator;
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        stat = GetComponent<Stat>();
     }
 
     void Update()

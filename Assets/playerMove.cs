@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private Stat stat;
     [SerializeField] private Vector2 inputVec;
     Rigidbody2D rigid;
-    [SerializeField] private float playerSpeed; // 이동 속도
     private Animator animator;
     [SerializeField] private float dashSpeed; // 대쉬 속도
     [SerializeField] private float dashDuration; // 대쉬 지속 시간
     private bool isDashing; // 대쉬 여부
-    [SerializeField] private float playerHealth; // 플레이어 체력
+    
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        stat = GetComponent<Stat>();
     }
 
     void Update()
     {   
-        if (playerHealth <= 0) {
+        if (stat.playerHealth <= 0) {
             Die();  
             return;
         }
@@ -53,7 +54,7 @@ public class Player : MonoBehaviour
     {   
         if (!isDashing)
         {    
-            Vector2 nextVec = inputVec.normalized * playerSpeed * Time.fixedDeltaTime;
+            Vector2 nextVec = inputVec.normalized * stat.playerSpeed * Time.fixedDeltaTime;
             // 위치 이동
             rigid.MovePosition(rigid.position + nextVec);
         }
