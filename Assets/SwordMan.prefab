@@ -2229,6 +2229,7 @@ GameObject:
   - component: {fileID: 1104926036004327633}
   - component: {fileID: 966404144307187508}
   - component: {fileID: -2151845023434844436}
+  - component: {fileID: 6248944481835059981}
   m_Layer: 5
   m_Name: SwordMan
   m_TagString: Player
@@ -2318,6 +2319,7 @@ MonoBehaviour:
   playerSkillDamage: 1
   playerSpeed: 2
   playerHealth: 10
+  playerDefence: 0
 --- !u!50 &-2151845023434844436
 Rigidbody2D:
   serializedVersion: 4
@@ -2345,6 +2347,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &6248944481835059981
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5339246102110784747}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.057750497, y: 0.3464499}
+  serializedVersion: 2
+  m_Radius: 0.49004465
 --- !u!1 &5692537654050904233
 GameObject:
   m_ObjectHideFlags: 0
