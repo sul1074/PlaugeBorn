@@ -191,6 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5970744564805441541}
   - component: {fileID: 157671282959545849}
+  - component: {fileID: 8264643338382141217}
   m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
@@ -226,6 +227,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703b155aca849b642aafc5344a9c77d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!60 &8264643338382141217
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513138910952525280}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.022483932, y: 0.04161632}
+      - {x: -0.47638437, y: -0.79629683}
+      - {x: -0.46896178, y: -0.9416301}
+      - {x: -0.35789558, y: -1.0747213}
+      - {x: -0.17806861, y: -1.1396092}
+      - {x: 0.021400165, y: -1.1625576}
+      - {x: 0.2005527, y: -1.1529665}
+      - {x: 0.41333592, y: -1.0758752}
+      - {x: 0.5170202, y: -0.93064314}
+      - {x: 0.5193443, y: -0.917606}
+      - {x: 0.5113613, y: -0.7929571}
+  m_UseDelaunayMesh: 0
 --- !u!1 &635256038295778622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,6 +2288,7 @@ GameObject:
   - component: {fileID: -2151845023434844436}
   - component: {fileID: 6248944481835059981}
   - component: {fileID: 1009164097827165480}
+  - component: {fileID: 6265154366635445719}
   m_Layer: 5
   m_Name: SwordMan
   m_TagString: Player
@@ -2289,12 +2347,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d9913878c17d64abec15f912187bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trail: {fileID: 0}
+  trail: {fileID: 1009164097827165480}
   inputVec: {x: 0, y: 0}
   dashSpeed: 6
   dashDuration: 0.2
-  lightningDashSpeed: 30
-  lightningDashDuration: 0.1
 --- !u!114 &1104926036004327633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2499,6 +2555,22 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &6265154366635445719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5339246102110784747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dada055a233f0347a31fe9d84cb4dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  afterimagePrefab: {fileID: 7239677551768367547, guid: 64cb1d6c10d635c41947cce876012152,
+    type: 3}
+  afterimageInterval: 0.03
+  fadeDuration: 0.1
 --- !u!1 &5692537654050904233
 GameObject:
   m_ObjectHideFlags: 0

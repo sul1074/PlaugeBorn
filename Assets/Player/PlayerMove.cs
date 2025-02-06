@@ -14,8 +14,9 @@ public class Player : MonoBehaviour
     private bool isDashing; // 대쉬 여부
 
     private bool isLightningCharged = false; // 벽력일섬 충전 여부
-    [SerializeField] private float lightningDashSpeed = 30f; // 번개 대쉬 속도
-    [SerializeField] private float lightningDashDuration = 0.1f; // 번개 대쉬 지속 시간
+    private float lightningDashSpeed = 30f; // 번개 대쉬 속도
+    private float lightningDashDuration = 0.2f; // 번개 대쉬 지속 시간
+    private AfterImage afterImage;
 
     void Awake()
     {
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
         stat = GetComponent<Stat>();
         trail = GetComponent<TrailRenderer>();
         trail.enabled = false;
+        afterImage = GetComponent<AfterImage>();
     }
 
     void Update()
@@ -52,7 +54,7 @@ public class Player : MonoBehaviour
         }
 
         // 일반 대시 (Left Shift)
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && !isLightningCharged)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
         {
             StartCoroutine(Dash(dashSpeed, dashDuration));
         }
@@ -74,10 +76,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator Dash(float speed, float duration) // 일반 대쉬 (회피)
+    IEnumerator Dash(float speed, float duration) // 일반 대쉬 (회피), 기능 추가 예정
     {
         isDashing = true;
-        // animator.SetTrigger("Dash");
+        afterImage.StartGhosting();
 
         Vector2 dashDirection = inputVec.normalized;
         if (dashDirection == Vector2.zero)
@@ -92,6 +94,7 @@ public class Player : MonoBehaviour
             yield return null;
         }
 
+        afterImage.StopGhosting();
         isDashing = false;
     }
 
