@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 8264643338382141217}
   m_Layer: 0
   m_Name: AttackRange
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2569,8 +2569,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   afterimagePrefab: {fileID: 7239677551768367547, guid: 64cb1d6c10d635c41947cce876012152,
     type: 3}
-  afterimageInterval: 0.03
-  fadeDuration: 0.1
 --- !u!1 &5692537654050904233
 GameObject:
   m_ObjectHideFlags: 0

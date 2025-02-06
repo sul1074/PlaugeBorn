@@ -14,7 +14,7 @@ public class StatReward : MonoBehaviour
     }
 
     public RewardType rewardType;
-    [SerializeField] public int amount; // 증가량
+    [SerializeField] private int amount; // 증가량
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
             ApplyStat();

@@ -6,10 +6,12 @@ public class PlayerAttack : MonoBehaviour // 기본 평타 및 스킬
 {
     private Stat stat;
     private Animator animator;
+    private SwordSkillAttack swordSkillAttack;
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         stat = GetComponent<Stat>();
+        swordSkillAttack = GetComponent<SwordSkillAttack>();
     }
 
     void Update()
@@ -28,7 +30,7 @@ public class PlayerAttack : MonoBehaviour // 기본 평타 및 스킬
         }
     }
 
-    void PlayerAttackMethod() // 데미지 추가 필요
+    void PlayerAttackMethod() // 데미지 추가 필요 
     {   
         // 평타 모션
         animator.SetBool("Attack", true); 
@@ -36,7 +38,7 @@ public class PlayerAttack : MonoBehaviour // 기본 평타 및 스킬
         
     }
 
-    void PlayerSkillAttack() // 데미지 추가 필요
+    void PlayerSkillAttack() // 데미지 및 능력 추가 필요 (쿨타임 + 차징 범위공격 및 스턴효과 생각중)
     {
         // 스킬 모션
         animator.SetBool("Attack", true);
