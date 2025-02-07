@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwordUpgrade : MonoBehaviour // 검사 무기 업그레이드
 {   
     private Stat stat;
+    private Player player;
     private SwordSkillAttack swordSkillAttack;
 
     [SerializeField] public enum SwordType { // 업그레이드 검 3종류
