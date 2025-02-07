@@ -6,7 +6,7 @@ public class TestAttackScript : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("응 충돌은 했네");
+        Debug.Log("Test Attack Log");
         if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Enemy")))
         {
             collision.GetComponent<IEnemyStats>().TakeHit(10.0f);
