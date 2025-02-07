@@ -14,6 +14,13 @@ public class MeleeEnemyAI : MonoBehaviour, IEnemyAI
     private SPUM_Prefabs animator;
     public SPUM_Prefabs Animator => animator;
 
+    private bool isBlocking = false;
+    public bool IsBlocking
+    {
+        get { return isBlocking; }
+        set {  isBlocking = value; }
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -30,8 +37,12 @@ public class MeleeEnemyAI : MonoBehaviour, IEnemyAI
 /// <param name="newState"></param>
     public void ChangeState(IEnemyState newState)
     {
+        if (IsBlocking)
+        {
+            Debug.LogWarning("Now In Charging Attack");
+            return;
+        }
         currentState?.ExitState(this);
-
         currentState = newState;
         currentState.EnterState(this);
     }
@@ -47,9 +58,11 @@ public class MeleeEnemyAI : MonoBehaviour, IEnemyAI
         transform.GetComponent<MeleeEnemyMovement>().Move();
     }
 
+    // TODO: 해야 함
     public void AttackPlayer()
     {
-        throw new System.NotImplementedException();
+        // TODO: 수정해야함.
+        return;
     }
     void OnDrawGizmos()
     {
