@@ -32,10 +32,11 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
         for (int i = 0; i < parameters.iterations; i++)
         {
             HashSet<Vector2Int> path = ProceduralGenerationAlgo.SimpleRandomWalk(curr, parameters.walkLength); // curr을 시작으로 walkLength만큼 walk
-            floorPositions.UnionWith(path); // curr에서 walk한 경로를 추가. UnionWith 함수를 통해 중복된 경로는 제거됨
+            floorPositions.UnionWith(path);
 
+            // startRandomlyEachIteration 활성화시, 매 반복마다 walk 시작점을 갱신
             if (parameters.startRandomlyEachIteration)
-                curr = floorPositions.ElementAt(UnityEngine.Random.Range(0, floorPositions.Count)); 
+                curr = path.ElementAt(UnityEngine.Random.Range(0, path.Count)); 
         }
 
         return floorPositions;

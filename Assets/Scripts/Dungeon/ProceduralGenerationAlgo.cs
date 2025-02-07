@@ -50,7 +50,6 @@ public static class ProceduralGenerationAlgo
         {
             curr += dir; // 현재 위치에서 한 방향으로 나아감
             corridor.Add(curr);
-            
         }
 
         return corridor;
