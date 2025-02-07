@@ -12,11 +12,11 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashSpeed; // 일반 대쉬 속도
     [SerializeField] private float dashDuration; // 일반 대쉬 지속 시간
     private bool isDashing; // 대쉬 여부
-
     private bool isLightningCharged = false; // 벽력일섬 충전 여부
     private float lightningDashSpeed = 30f; // 번개 대쉬 속도
     private float lightningDashDuration = 0.2f; // 번개 대쉬 지속 시간
     private AfterImage afterImage;
+    private SwordSkillAttack swordSkillAttack;
 
     void Awake()
     {
@@ -26,12 +26,25 @@ public class Player : MonoBehaviour
         trail = GetComponent<TrailRenderer>();
         trail.enabled = false;
         afterImage = GetComponent<AfterImage>();
+        swordSkillAttack = GetComponent<SwordSkillAttack>();
     }
 
     void Update()
     {   
+
         if (stat.playerHealth <= 0) {
             Die();  
+            return;
+        }
+
+        if (Input.GetMouseButton(1)) 
+        { 
+            if (swordSkillAttack.cooldownTimer > 0) 
+            {
+                return;
+            }
+            inputVec = Vector2.zero;
+            animator.SetFloat("RunState", 0f);
             return;
         }
 
