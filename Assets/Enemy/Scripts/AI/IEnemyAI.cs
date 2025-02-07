@@ -4,6 +4,8 @@ using UnityEngine;
 
 public interface IEnemyAI
 {
+    // 상태 변화를 막게하는 변수
+    bool IsBlocking { get; set; }
     void ChangeState(IEnemyState state);
     public bool IsPlayerInAttackRange();
     public void Move();
