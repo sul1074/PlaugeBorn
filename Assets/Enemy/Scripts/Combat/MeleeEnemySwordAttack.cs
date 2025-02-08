@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class MeleeEnemySwordAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collision.tag == "Player")
+        {
+            // TODO: ATTACK 어택하는 신호 여기에 넣으시면 됩니다.
+        }
     }
 }
