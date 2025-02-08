@@ -6,7 +6,7 @@ public class SwordSkillAttack : MonoBehaviour // 차징 공격 스크립트
 {
     public float maxChargeTime = 2f; // 최대 차징 시간
     public float maxSkillRange = 1f; // 최대 공격 범위'
-    public float cooldownTime = 3f; // 쿨타임
+    public float cooldownTime = 5f; // 쿨타임
     public float cooldownTimer = 0f; // 현재 쿨타임 상태
     //skillDamage (Stat.cs)
     //stunDuration 

@@ -3047,7 +3047,7 @@ MonoBehaviour:
   AttackRange: 5
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   animator: {fileID: 0}
 --- !u!114 &3908283777542230488
 MonoBehaviour:
