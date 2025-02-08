@@ -45,8 +45,6 @@ public class PlayerAttack : MonoBehaviour // 기본 평타 및 스킬
     void PlayerSkillAttackStart() // 데미지 및 능력 추가 필요 (쿨타임 + 차징 범위공격 및 스턴효과 생각중)
     {
         swordSkillAttack.StartCharging();
-        animator.SetBool("Attack", true);
-        animator.SetFloat("AttackState", 1); // 차징후에 발동으로 수정 필요
     }
 
     void PlayerSkillAttackStop()
