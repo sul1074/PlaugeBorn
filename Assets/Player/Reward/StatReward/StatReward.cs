@@ -6,6 +6,7 @@ using UnityEngine;
 public class StatReward : MonoBehaviour
 {
     private Stat stat;
+    private Player player;
     [SerializeField] public enum RewardType { // 보상 타입
         HpIncrease,
         DefEnforce,

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour // 움직임 스크립트 (벽력일섬 포함)
 {
     public TrailRenderer trail;
     private Stat stat;
@@ -12,11 +12,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashSpeed; // 일반 대쉬 속도
     [SerializeField] private float dashDuration; // 일반 대쉬 지속 시간
     private bool isDashing; // 대쉬 여부
-
     private bool isLightningCharged = false; // 벽력일섬 충전 여부
     private float lightningDashSpeed = 30f; // 번개 대쉬 속도
     private float lightningDashDuration = 0.2f; // 번개 대쉬 지속 시간
     private AfterImage afterImage;
+    private SwordSkillAttack swordSkillAttack;
+    public LightningRange lightningRange; // 벽력일섬 범위
 
     void Awake()
     {
@@ -26,12 +27,26 @@ public class Player : MonoBehaviour
         trail = GetComponent<TrailRenderer>();
         trail.enabled = false;
         afterImage = GetComponent<AfterImage>();
+        swordSkillAttack = GetComponent<SwordSkillAttack>();
+        lightningRange = GetComponent<LightningRange>();
     }
 
     void Update()
     {   
+
         if (stat.playerHealth <= 0) {
             Die();  
+            return;
+        }
+
+        if (Input.GetMouseButton(1)) 
+        { 
+            if (swordSkillAttack.cooldownTimer > 0) 
+            {
+                return;
+            }
+            inputVec = Vector2.zero;
+            animator.SetFloat("RunState", 0f);
             return;
         }
 
@@ -87,6 +102,24 @@ public class Player : MonoBehaviour
             dashDirection = Vector2.left * Mathf.Sign(transform.localScale.x);
         }
 
+    // 회피 기능 구현 (테스트 예정)
+    /*Collider2D playerCollider = GetComponent<Collider2D>();
+
+    // Enemy 태그를 가진 모든 적의 Collider2D와 충돌 무시
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    List<Collider2D> enemyColliders = new List<Collider2D>();
+
+    foreach (GameObject enemy in enemies)
+    {
+        Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
+        if (enemyCollider != null)
+        {
+            Physics2D.IgnoreCollision(playerCollider, enemyCollider, true);
+            enemyColliders.Add(enemyCollider);
+        }
+    }*/
+
+
         float startTime = Time.time;
         while (Time.time < startTime + duration)
         {
@@ -106,7 +139,13 @@ public class Player : MonoBehaviour
         animator.SetBool("Attack", true);
         trail.enabled = true;  // 궤적 효과 켜기
 
-        yield return new WaitForSeconds(1f); // 선딜...
+        if (lightningRange != null) // 공격 콜라이더 활성화
+        {
+            lightningRange.dashColliderObj.SetActive(true);
+        }
+
+        yield return new WaitForSeconds(1f); // 선딜
+
         animator.SetFloat("AttackState", 0);
         Vector2 dashDirection = inputVec.normalized;
         if (dashDirection == Vector2.zero)
@@ -125,6 +164,12 @@ public class Player : MonoBehaviour
         animator.SetBool("Attack", false);
         animator.speed = 1f;
         trail.enabled = false;  // 궤적 효과 켜기
+
+        // 공격 범위 비활성화
+        if (lightningRange != null)
+        {
+            lightningRange.dashColliderObj.SetActive(false);
+        }
     }
 
     void Die()

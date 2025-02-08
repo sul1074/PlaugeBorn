@@ -5,15 +5,17 @@ using UnityEngine;
 public class SwordUpgrade : MonoBehaviour // 검사 무기 업그레이드
 {   
     private Stat stat;
+    private Player player;
     private SwordSkillAttack swordSkillAttack;
 
-    [SerializeField] public enum SwordType { // 업그레이드 검 3종류
+    [SerializeField] public enum SwordType { // 업그레이드 검 4종류
         ChargeTimeReducton,
         CooldownReduction,
-        StunIncrease
+        StunIncrease,
+        maxSkillRange
     }
     public SwordType swordType;
-    [SerializeField] private int amount;
+    [SerializeField] private float amount;
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if (other.CompareTag("Player"))
@@ -26,13 +28,16 @@ public class SwordUpgrade : MonoBehaviour // 검사 무기 업그레이드
     void SwordEnforce() { // 검사 강화
         switch (swordType) {
             case SwordType.ChargeTimeReducton:
-            // swordSkillAttack.maxChargeTime -= 1f;
+            swordSkillAttack.maxChargeTime -= amount;
                 break;
             case SwordType.CooldownReduction:
-            // 스킬 쿨타임 감소
+            swordSkillAttack.cooldownTime -= amount;
                 break;
             case SwordType.StunIncrease:
             // swordSkillAttack.stunDuration += 1f;
+                break;
+            case SwordType.maxSkillRange:
+            swordSkillAttack.maxSkillRange += amount;
                 break;
         }
     }

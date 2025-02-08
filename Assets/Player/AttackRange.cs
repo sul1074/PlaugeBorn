@@ -7,6 +7,7 @@ public class AttackRange : MonoBehaviour // 평타 범위 관련 코드
     private Vector2 mousePos;
     private float angle;
     private PolygonCollider2D attackCollider;
+    public LayerMask enemyLayer;
 
     void Awake() 
     {
