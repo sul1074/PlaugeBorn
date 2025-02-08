@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class MeleeEnemyStats : MonoBehaviour, IEnemyStats
 {
-    [SerializeField]
-    private float Hp = 100.0f;
+    [SerializeField] private float Hp = 100.0f;
     // Attack Speed: It be handled in WAIT_SECONDS of IdleState
     // MoveSpeed: It be handled in MeleeMovement
-    [SerializeField]
-    private float Defence = 1.0f;
+    [SerializeField] private float Defence = 1.0f;
     
     public void TakeHit(float damage)
     {
