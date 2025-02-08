@@ -39,6 +39,7 @@ public class PlayerAttack : MonoBehaviour // 기본 평타 및 스킬
         // 평타 모션
         animator.SetBool("Attack", true); 
         animator.SetFloat("AttackState", 0);
+        // 데미지
         
     }
 

@@ -10,7 +10,7 @@ public class StatReward : MonoBehaviour
     [SerializeField] public enum RewardType { // 보상 타입
         HpIncrease,
         DefEnforce,
-        DamageEnforce,
+        ATKEnforce,
         SpeedUp,
     }
 
@@ -31,9 +31,8 @@ public class StatReward : MonoBehaviour
             case RewardType.DefEnforce:
                 stat.playerDefence += amount;
                 break;
-            case RewardType.DamageEnforce:
-                stat.playerDamage += amount;
-                stat.playerSkillDamage += amount;
+            case RewardType.ATKEnforce:
+                stat.playerATK += amount;
                 break;
             case RewardType.SpeedUp:
                 stat.playerSpeed += amount;
