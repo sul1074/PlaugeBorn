@@ -1,8 +1,10 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 {
@@ -17,7 +19,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     private int offset = 1;
 
     [SerializeField]
-    private bool randomWalkRooms = false; // ¹æ ³»ºÎ¸¦ ·£´ı ÆĞÅÏÀ¸·Î Ã¤¿ïÁö ¿©ºÎ
+    private bool randomWalkRooms = false; // ë°© ë‚´ë¶€ë¥¼ ëœë¤ íŒ¨í„´ìœ¼ë¡œ ì±„ìš¸ì§€ ì—¬ë¶€
 
     protected override void RunProceduralGeneration()
     {
@@ -27,28 +29,121 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     private void CreateRooms()
     {
         List<BoundsInt> roomsList = ProceduralGenerationAlgo.BinarySpacePartitioning(new BoundsInt((Vector3Int)base.startPos,
-            new Vector3Int(dungeonWidth, dungeonHeight, 0)), minRoomWidth, minRoomHeight); // ´øÀü ¿µ¿ªÀ» ºĞÇÒÇÏ¿© ¹æ ¸®½ºÆ® »ı¼º
+            new Vector3Int(dungeonWidth, dungeonHeight, 0)), minRoomWidth, minRoomHeight); // ë˜ì „ ì˜ì—­ì„ ë¶„í• í•˜ì—¬ ë°© ë¦¬ìŠ¤íŠ¸ ìƒì„±
 
-        // ºĞÇÒµÈ ¹æµé¿¡ ´ëÇØ Å¸ÀÏÀ» Ã¤¿ì±â À§ÇØ, ¹æ ³»ºÎ ¹üÀ§ ¾ÈÀÇ ¸ğµç ÁÂÇ¥¸¦ °è»ê
+        // ë¶„í• ëœ ë°©ë“¤ì— ëŒ€í•´ íƒ€ì¼ì„ ì±„ìš°ê¸° ìœ„í•´, ë°© ë‚´ë¶€ ë²”ìœ„ ì•ˆì˜ ëª¨ë“  ì¢Œí‘œë¥¼ ê³„ì‚°
         HashSet<Vector2Int> floor = new HashSet<Vector2Int>();
         floor = CreateSimpleRooms(roomsList);
 
-        // ¹æµé¿¡ ´ëÇØ Å¸ÀÏ Ã¤¿ò
+        // ë¶„í• ëœ ê° ë°©ì˜ ì¤‘ì‹¬ ì¢Œí‘œë¥¼ ì €ì¥
+        List<Vector2Int> roomCenters = new List<Vector2Int>();
+        foreach (BoundsInt room in roomsList)
+        {
+            roomCenters.Add((Vector2Int)Vector3Int.RoundToInt(room.center));
+        }
+
+        // ë°©ë“¤ì„ ì—°ê²°í•˜ëŠ” ë³µë„ ìƒì„±
+        HashSet<Vector2Int> corridors = ConnectRooms(roomCenters);
+        floor.UnionWith(corridors);
+
+        // ë°©ë“¤ì— ëŒ€í•´ íƒ€ì¼ ì±„ì›€
         tilemapVisualizer.PaintFloorTiles(floor);
         WallGenerator.CreateWalls(floor, tilemapVisualizer);
     }
 
+    private HashSet<Vector2Int> ConnectRooms(List<Vector2Int> roomCenters)
+    {
+        HashSet<Vector2Int> corridors = new HashSet<Vector2Int>();
+
+        // ëœë¤í•œ ë°© í•˜ë‚˜ë¥¼ ì‹œì‘ì ìœ¼ë¡œ
+        Vector2Int currentRoomCenter = roomCenters[Random.Range(0, roomCenters.Count)];
+        roomCenters.Remove(currentRoomCenter);
+
+        // ëª¨ë“  ë°©ë“¤ì„ ì—°ê²°í•  ë•Œê¹Œì§€ ë°˜ë³µ
+        while (roomCenters.Count > 0)
+        {
+            // í˜„ì¬ ë°©ì—ì„œ ê°€ì¥ ê°€ê¹Œìš´ ë°©ì˜ ì¤‘ì‹¬ ì¢Œí‘œ ì°¾ê¸°
+            Vector2Int closest = FindClosestPointTo(currentRoomCenter, roomCenters);
+            roomCenters.Remove(closest);
+
+            // í˜„ì¬ ë°©ì˜ ì¤‘ì‹¬ê³¼ ê°€ì¥ ê°€ê¹Œìš´ ë°©ì˜ ì¤‘ì‹¬ì„ ì—°ê²°í•˜ëŠ” ë³µë„ ìƒì„±
+            HashSet<Vector2Int> newCorridor = CreateCorridor(currentRoomCenter, closest);
+            currentRoomCenter = closest;
+            corridors.UnionWith(newCorridor);
+        }
+
+        return corridors;
+    }
+
+    private HashSet<Vector2Int> CreateCorridor(Vector2Int currentRoomCenter, Vector2Int destination)
+    {
+        HashSet<Vector2Int> corridor = new HashSet<Vector2Int>();
+        Vector2Int pos = currentRoomCenter;
+        corridor.Add(pos);
+
+        // y ì¢Œí‘œê°€ ê°™ì•„ì§€ë„ë¡ ë¨¼ì € ì—°ê²°
+        while (pos.y != destination.y)
+        {
+            if (destination.y > pos.y)
+            {
+                pos += Vector2Int.up;
+            }
+            else if (destination.y < pos.y)
+            {
+                pos += Vector2Int.down;
+            }
+
+            corridor.Add(pos);
+        }
+
+        // ë‹¤ìŒì— x ì¢Œí‘œê°€ ê°™ì•„ì§€ë„ë¡ ì—°ê²°
+        while (pos.x != destination.x)
+        {
+            if (destination.x > pos.x)
+            {
+                pos += Vector2Int.right;
+            }
+            else if (destination.x < pos.x)
+            {
+                pos += Vector2Int.left;
+            }
+
+            corridor.Add(pos);
+        }
+
+        return corridor;
+    }
+
+    private Vector2Int FindClosestPointTo(Vector2Int currentRoomCenter, List<Vector2Int> roomCenters)
+    {
+        Vector2Int closest = Vector2Int.zero;
+        float distance = float.MaxValue;
+
+        foreach(Vector2Int pos in roomCenters)
+        {
+            float currDistance = Vector2.Distance(pos, currentRoomCenter);
+
+            if (currDistance < distance)
+            {
+                distance = currDistance;
+                closest = pos;
+            }
+        }
+
+        return closest;
+    }
+
     /// <summary>
-    /// °¢ ¹æ ³»ºÎ¿¡ ´ëÇÑ ¸ğµç ÁÂÇ¥ Á¤º¸¸¦ °è»êÇØ¼­ ¹İÈ¯
+    /// ê° ë°© ë‚´ë¶€ì— ëŒ€í•œ ëª¨ë“  ì¢Œí‘œ ì •ë³´ë¥¼ ê³„ì‚°í•´ì„œ ë°˜í™˜
     /// </summary>
     private HashSet<Vector2Int> CreateSimpleRooms(List<BoundsInt> roomsList)
     {
         HashSet<Vector2Int> floor = new HashSet<Vector2Int>();
         
-        // ½ÃÀÛ ÁÂÇ¥¿Í »çÀÌÁî¸¦ ÅëÇØ ¹æ ³»ºÎÀÇ ¸ğµç ÁÂÇ¥ °è»ê
+        // ì‹œì‘ ì¢Œí‘œì™€ ì‚¬ì´ì¦ˆë¥¼ í†µí•´ ë°© ë‚´ë¶€ì˜ ëª¨ë“  ì¢Œí‘œ ê³„ì‚°
         foreach (BoundsInt room in roomsList)
         {
-            // offsetÀ» ÅëÇØ °¢ ¹æµéÀÇ °£°İÀÌ ¶ç¾îÁü
+            // offsetì„ í†µí•´ ê° ë°©ë“¤ì˜ ê°„ê²©ì´ ë„ì–´ì§
             for (int col = offset; col < room.size.x - offset; col++)
             {
                 for (int row = offset; row < room.size.y - offset; row++) 
