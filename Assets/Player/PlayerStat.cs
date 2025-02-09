@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Stat : MonoBehaviour
 {
-    [SerializeField] public float playerATK; // 플레이어 공격력력
     [SerializeField] public float playerDamage; // 평타 데미지
     [SerializeField] public float playerSkillDamage; // 스킬 데미지
     [SerializeField] public float playerSpeed; // 이동 속도
@@ -13,5 +12,4 @@ public class Stat : MonoBehaviour
 }
 
 
-// 데미지 = 공격력 * (1 - 방어율)
-// 방어율 = 방어력 / (1 + 방어력)
+    

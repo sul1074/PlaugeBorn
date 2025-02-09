@@ -18,8 +18,6 @@ public class Player : MonoBehaviour // 움직임 스크립트 (벽력일섬 포�
     private AfterImage afterImage;
     private SwordSkillAttack swordSkillAttack;
     public LightningRange lightningRange; // 벽력일섬 범위
-    private float dashCoolTime = 1f;
-    private float dashCoolTimer = 0f;
 
     void Awake()
     {
@@ -70,15 +68,8 @@ public class Player : MonoBehaviour // 움직임 스크립트 (벽력일섬 포�
             animator.SetFloat("RunState", isMoving ? 0.5f : 0f);    
         }
 
-        if (dashCoolTimer > 0)
-        {
-            dashCoolTimer -= Time.deltaTime;
-            if (dashCoolTimer < 0)
-                dashCoolTimer = 0;
-        }
-
         // 일반 대시 (Left Shift)
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && dashCoolTimer <= 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
         {
             StartCoroutine(Dash(dashSpeed, dashDuration));
         }
@@ -111,7 +102,7 @@ public class Player : MonoBehaviour // 움직임 스크립트 (벽력일섬 포�
             dashDirection = Vector2.left * Mathf.Sign(transform.localScale.x);
         }
 
-    // 회피 기능 구현 (테스트 예정) (rigidbody도 무효처리?)
+    // 회피 기능 구현 (테스트 예정)
     /*Collider2D playerCollider = GetComponent<Collider2D>();
 
     // Enemy 태그를 가진 모든 적의 Collider2D와 충돌 무시
@@ -138,7 +129,6 @@ public class Player : MonoBehaviour // 움직임 스크립트 (벽력일섬 포�
 
         afterImage.StopGhosting();
         isDashing = false;
-        dashCoolTimer = dashCoolTime;
     }
 
     IEnumerator LightDash(float speed, float duration) // 벽력일섬 함수 (데미지 관련 추가 필요)
@@ -182,7 +172,7 @@ public class Player : MonoBehaviour // 움직임 스크립트 (벽력일섬 포�
         }
     }
 
-    public void Die()
+    void Die()
     {
         isDashing = false;
         animator.SetTrigger("Die");
