@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -2759631543179588804}
   - component: {fileID: -7398980399973154133}
   m_Layer: 0
-  m_Name: DamageEnforce
+  m_Name: ATKEnforce
   m_TagString: Reward
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

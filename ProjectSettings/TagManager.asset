@@ -7,6 +7,8 @@ TagManager:
   - Weapon
   - Attack
   - Reward
+  - EnemyAttack
+  - Enemy
   layers:
   - Default
   - TransparentFX

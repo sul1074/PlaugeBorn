@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 5970744564805441541}
   - component: {fileID: 157671282959545849}
   - component: {fileID: 8264643338382141217}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: AttackRange
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -1880,7 +1880,7 @@ GameObject:
   - component: {fileID: 10796352073667483}
   - component: {fileID: 1211953376245971127}
   - component: {fileID: 1310644575332728692}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: ChargeAttackRange
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -2065,7 +2065,7 @@ GameObject:
   - component: {fileID: 936705716059877495}
   - component: {fileID: 1267415559278778511}
   - component: {fileID: 6309032094953534897}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LightningRange
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -2571,6 +2571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0858199bfe98f3d4e96f3e1a516ec4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerATK: 0
   playerDamage: 1
   playerSkillDamage: 1
   playerSpeed: 2
@@ -2621,7 +2622,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5339246102110784747}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -3215,7 +3216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2019758242962625451}
   - component: {fileID: 1912664656591897730}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Triangle
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -4284,7 +4285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8655232801071138369}
   - component: {fileID: 8635704384547410867}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Attack
   m_Icon: {fileID: 0}
