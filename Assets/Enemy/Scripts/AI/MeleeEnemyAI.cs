@@ -7,10 +7,11 @@ public class MeleeEnemyAI : MonoBehaviour, IEnemyAI
 {
     private IEnemyState currentState;
     // 공격 범위
-    public float AttackRange = 0.01f;
+    public float AttackRange = 1f;
     public LayerMask playerLayer;
 
-    [SerializeField] private SPUM_Prefabs animator;
+    [SerializeField]
+    private SPUM_Prefabs animator;
     public SPUM_Prefabs Animator => animator;
 
     private bool isBlocking = false;
