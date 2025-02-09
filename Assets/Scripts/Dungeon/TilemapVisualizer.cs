@@ -6,16 +6,11 @@ using UnityEngine.Tilemaps;
 
 public class TilemapVisualizer : MonoBehaviour
 {
-    // 던전 바닥과 벽을 그릴 타일맵
-    [SerializeField] 
-    private Tilemap floorTilemap, wallTilemap;
+    [SerializeField] private Tilemap floorTilemap; // 던전 바닥을 그릴 타일맵
+    [SerializeField] private Tilemap wallTilemap; // 던전 벽을 그릴 타일맵
 
-    [SerializeField]
-    private TileBase floorTile, wallTop, wallSideRight, wallSideLeft, wallBottom, wallFull;
-
-    [SerializeField]
-    private TileBase wallInnerCornerDownLeft, wallInnerCornerDownRight,
-        wallDiagonalCornerDownRight, wallDiagonalCornerDownLeft, wallDiagonalCornerUpRight, wallDiagonalCornerUpLeft;
+    [SerializeField] private TileBase floorTile; // 던전 바닥에 배치할 타일
+    [SerializeField] private TileBase wallTile; // 던전 벽에 배치할 타일
 
     /// <summary>
     /// floorPositions에 담긴 좌표들에 타일을 그리도록 하는 함수. 외부에서 좌표 집합만 가지고 호출할 수 있도록 하기 위해 모듈화
@@ -51,28 +46,9 @@ public class TilemapVisualizer : MonoBehaviour
         Vector3Int tilePos = tilemap.WorldToCell((Vector3Int)pos);
         tilemap.SetTile(tilePos, tile);
     }
-
-    /// <summary>
-    /// WallTypesHelper에 정의된 정보와 전달받은 2진수 타입을 비교하여, 2진수 정보에 맞는 방향의 기본 직교 방향 벽을 생성
-    /// </summary>
-    internal void PaintSingleWallTile(Vector2Int pos, string binaryType)
+    internal void PaintSingleWallTile(Vector2Int pos)
     {
-        int typeAsInt = Convert.ToInt32(binaryType, 2);
-        TileBase tile = null;
-
-        if (WallTypesHelper.wallTop.Contains(typeAsInt))
-            tile = wallTop;
-        else if (WallTypesHelper.wallSideRight.Contains(typeAsInt))
-            tile = wallSideRight;
-        else if (WallTypesHelper.wallSideLeft.Contains(typeAsInt))
-            tile = wallSideLeft;
-        else if (WallTypesHelper.wallBottm.Contains(typeAsInt))
-            tile = wallBottom;
-        else if (WallTypesHelper.wallFull.Contains(typeAsInt))
-            tile = wallFull;
-
-        if (tile != null)
-            PaintSingleTile(wallTilemap, tile, pos);
+        PaintSingleTile(wallTilemap, wallTile, pos);
     }
 
     /// <summary>
@@ -82,34 +58,5 @@ public class TilemapVisualizer : MonoBehaviour
     {
         floorTilemap.ClearAllTiles();
         wallTilemap.ClearAllTiles();
-    }
-
-    /// <summary>
-    /// /// WallTypesHelper에 정의된 정보와 전달받은 2진수 타입을 비교하여, 2진수 정보에 맞는 대각 방향 벽을 생성
-    /// </summary>
-    internal void PaintSingleCornerWall(Vector2Int pos, string binaryType)
-    {
-        int typeAsInt = Convert.ToInt32(binaryType, 2);
-        TileBase tile = null;
-
-        if (WallTypesHelper.wallInnerCornerDownLeft.Contains(typeAsInt))
-            tile = wallInnerCornerDownLeft;
-        else if (WallTypesHelper.wallInnerCornerDownRight.Contains(typeAsInt))
-            tile = wallInnerCornerDownRight;
-        else if (WallTypesHelper.wallDiagonalCornerDownLeft.Contains(typeAsInt))
-            tile = wallDiagonalCornerDownLeft;
-        else if (WallTypesHelper.wallDiagonalCornerDownRight.Contains(typeAsInt))
-            tile = wallDiagonalCornerDownRight;
-        else if (WallTypesHelper.wallDiagonalCornerUpRight.Contains(typeAsInt))
-            tile = wallDiagonalCornerUpRight;
-        else if (WallTypesHelper.wallDiagonalCornerUpLeft.Contains(typeAsInt))
-            tile = wallDiagonalCornerUpLeft;
-        else if (WallTypesHelper.wallFullEightDirections.Contains(typeAsInt))
-            tile = wallFull;
-        else if (WallTypesHelper.wallBottmEightDirections.Contains(typeAsInt))
-            tile = wallBottom;
-
-        if (tile != null)
-            PaintSingleTile(wallTilemap, tile, pos);
     }
 }
