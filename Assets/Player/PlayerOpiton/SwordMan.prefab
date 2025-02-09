@@ -2483,6 +2483,7 @@ GameObject:
   - component: {fileID: -2151845023434844436}
   - component: {fileID: 1009164097827165480}
   - component: {fileID: 7835732546445974826}
+  - component: {fileID: -4753655529870011341}
   m_Layer: 3
   m_Name: SwordMan
   m_TagString: Player
@@ -2787,6 +2788,18 @@ CapsuleCollider2D:
   m_Offset: {x: -0.026245717, y: 0.35003853}
   m_Size: {x: 0.7949629, y: 0.8205948}
   m_Direction: 0
+--- !u!114 &-4753655529870011341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5339246102110784747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed052d6eddf7494789ee1a250ddb734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5692537654050904233
 GameObject:
   m_ObjectHideFlags: 0
