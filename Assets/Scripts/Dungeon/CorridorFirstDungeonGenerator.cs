@@ -42,8 +42,8 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         // 복도의 크기를 증가시켜 좀 더 넓은 길을 형성
         for (int i = 0; i < corridorPositions.Count; i++)
         {
-            corridorPositions[i] = IncreaseCorridorSizeByOne(corridorPositions[i]);
-            // corridorPositions[i] = IncreaseCorridorBrush3by3(corridorPositions[i]);
+            //corridorPositions[i] = IncreaseCorridorSizeByOne(corridorPositions[i]);
+            corridorPositions[i] = IncreaseCorridorBrush3by3(corridorPositions[i]);
             floorPositions.UnionWith(corridorPositions[i]);
         }
 
