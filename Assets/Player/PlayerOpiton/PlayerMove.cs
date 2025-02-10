@@ -140,7 +140,7 @@ public class Player : MonoBehaviour // 움직임 스크립트 (벽력일섬 포�
         dashCoolTimer = dashCoolTime;
     }
 
-    IEnumerator LightDash(float speed, float duration) // 벽력일섬 함수 (데미지 관련 추가 필요)
+    IEnumerator LightDash(float speed, float duration) // 벽력일섬 함수 (데미지 관련 추가 필요, 회피도 넣어야함)
     {
         isDashing = true;
 

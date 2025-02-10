@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour // 기본 평타 및 스킬
+public class PlayerAttackMove : MonoBehaviour // 기본 평타 및 스킬
 {
     private Stat stat;
     private Animator animator;
@@ -52,6 +52,7 @@ public class PlayerAttack : MonoBehaviour // 기본 평타 및 스킬
     {
         swordSkillAttack.StopCharging();
     }
+
 }
 
 
