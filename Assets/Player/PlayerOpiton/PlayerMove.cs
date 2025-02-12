@@ -140,7 +140,7 @@ public class Player : MonoBehaviour // 움직임 스크립트 (벽력일섬 포�
         dashCoolTimer = dashCoolTime;
     }
 
-    IEnumerator LightDash(float speed, float duration) // 벽력일섬 함수 (데미지 관련 추가 필요, 회피도 넣어야함)
+    IEnumerator LightDash(float speed, float duration) // 벽력일섬 함수 (데미지 관련 추가 필요, 회피도 넣어야함 돌진하기 전에 시간 느려지는 것 구현하는 것도 괜찮을 거 같아요)
     {
         isDashing = true;
 

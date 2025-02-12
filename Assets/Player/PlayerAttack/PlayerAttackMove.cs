@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackMove : MonoBehaviour // 기본 평타 및 스킬
+public class PlayerAttackMove : MonoBehaviour // 기본 평타 및 스킬 모션, 데미지 (벽력일섬은 PlayerMove에 위치)
 {
     private Stat stat;
     private Animator animator;

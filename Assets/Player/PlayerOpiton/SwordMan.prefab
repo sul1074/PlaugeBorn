@@ -2480,10 +2480,10 @@ GameObject:
   - component: {fileID: 966404144307187508}
   - component: {fileID: 6265154366635445719}
   - component: {fileID: 5433320834334969678}
+  - component: {fileID: -4753655529870011341}
   - component: {fileID: -2151845023434844436}
   - component: {fileID: 1009164097827165480}
   - component: {fileID: 7835732546445974826}
-  - component: {fileID: -4753655529870011341}
   m_Layer: 3
   m_Name: SwordMan
   m_TagString: Player
@@ -2546,7 +2546,7 @@ MonoBehaviour:
   inputVec: {x: 0, y: 0}
   dashSpeed: 6
   dashDuration: 0.2
-  lightningRange: {fileID: 0}
+  lightningRange: {fileID: 6309032094953534897}
 --- !u!114 &1104926036004327633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2571,12 +2571,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0858199bfe98f3d4e96f3e1a516ec4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerATK: 0
-  playerDamage: 1
-  playerSkillDamage: 1
+  playerATK: 1
   playerSpeed: 2
   playerHealth: 10
-  playerDefence: 0
+  playerDefence: 1
 --- !u!114 &6265154366635445719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2607,13 +2605,23 @@ MonoBehaviour:
   maxSkillRange: 5
   cooldownTime: 3
   cooldownTimer: 0
-  chargeTime: 0
-  isCharging: 0
   chargeCollider: {fileID: 1310644575332728692}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
   chargeEffect: {fileID: 4194551828569250001}
+--- !u!114 &-4753655529870011341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5339246102110784747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed052d6eddf7494789ee1a250ddb734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &-2151845023434844436
 Rigidbody2D:
   serializedVersion: 4
@@ -2789,18 +2797,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.026245717, y: 0.35003853}
   m_Size: {x: 0.7949629, y: 0.8205948}
   m_Direction: 0
---- !u!114 &-4753655529870011341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5339246102110784747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ed052d6eddf7494789ee1a250ddb734, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5692537654050904233
 GameObject:
   m_ObjectHideFlags: 0

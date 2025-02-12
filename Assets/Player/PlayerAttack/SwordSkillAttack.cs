@@ -10,8 +10,8 @@ public class SwordSkillAttack : MonoBehaviour // 차징 공격 스크립트
     public float cooldownTimer = 0f; // 현재 쿨타임 상태
     //skillDamage (Stat.cs)
     //stunDuration 
-    public float chargeTime = 0f; // 현재 차징 시간
-    public bool isCharging = false;
+    private float chargeTime = 0f; // 현재 차징 시간
+    private bool isCharging = false;
     public CircleCollider2D chargeCollider;
     public LayerMask enemyLayer;
     [SerializeField] private GameObject chargeEffect; // 원 스프라이트
