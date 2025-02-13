@@ -2479,6 +2479,7 @@ GameObject:
   - component: {fileID: 1104926036004327633}
   - component: {fileID: 966404144307187508}
   - component: {fileID: 6265154366635445719}
+  - component: {fileID: 7011531360359565329}
   - component: {fileID: 5433320834334969678}
   - component: {fileID: -4753655529870011341}
   - component: {fileID: -2151845023434844436}
@@ -2542,11 +2543,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d9913878c17d64abec15f912187bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trail: {fileID: 1009164097827165480}
   inputVec: {x: 0, y: 0}
   dashSpeed: 6
   dashDuration: 0.2
-  lightningRange: {fileID: 6309032094953534897}
+  isDashing: 0
 --- !u!114 &1104926036004327633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2589,6 +2589,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   afterimagePrefab: {fileID: 7239677551768367547, guid: 64cb1d6c10d635c41947cce876012152,
     type: 3}
+--- !u!114 &7011531360359565329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5339246102110784747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2998ceda149a04383ba7006d809ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trail: {fileID: 1009164097827165480}
+  lightningRange: {fileID: 6309032094953534897}
 --- !u!114 &5433320834334969678
 MonoBehaviour:
   m_ObjectHideFlags: 0
