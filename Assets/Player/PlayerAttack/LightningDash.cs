@@ -10,10 +10,9 @@ public class LightningDash : MonoBehaviour
     private Rigidbody2D rigid;
     private bool isLightningCharged = false; // 벽력일섬 충전 여부
     private int lightningCharges = 0; // 현재 충전된 양
-    private int maxLightningCharges = 3; // 3개까지 스택 가능
+    private int maxLightningCharges = 3; // 최대 스택 가능 개수
     private float lightningDashSpeed = 30f; // 번개 대쉬 속도
     private float lightningDashDuration = 0.2f; // 번개 대쉬 지속 시간
-    //public LightningRange lightningRange; // 벽력일섬 범위
     public BoxCollider2D lightningCollider;
     void Awake()
     {
@@ -25,14 +24,17 @@ public class LightningDash : MonoBehaviour
         lightningCollider.enabled = false;
         rigid = GetComponent<Rigidbody2D>();
     }
+
+    // 벽력일섬 충전 스택 관리하는 함수
     public void ChargeLightning()
     {
         if (lightningCharges < maxLightningCharges)
         {
-            lightningCharges++; // 충전 스택 증가
+            lightningCharges++;
         }
     }
 
+    // 벽력일섬 실행 함수
     public void TryUseLightDash()
     {
         if (lightningCharges > 0 && !player.isDashing)
@@ -42,7 +44,7 @@ public class LightningDash : MonoBehaviour
         }
     }
 
-    IEnumerator LightDash(float speed, float duration) // 벽력일섬 함수 (데미지 관련 추가 필요, 회피도 넣어야함 돌진하기 전에 시간 느려지는 것 구현하는 것도 괜찮을 거 같아요)
+    IEnumerator LightDash(float speed, float duration) // 벽력일섬 함수 (회피 추가 필요(플레이어 콜라이더 비활성화))
     {
         player.isDashing = true;
 
