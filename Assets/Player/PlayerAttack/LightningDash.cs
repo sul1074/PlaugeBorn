@@ -13,14 +13,16 @@ public class LightningDash : MonoBehaviour
     private int maxLightningCharges = 3; // 3개까지 스택 가능
     private float lightningDashSpeed = 30f; // 번개 대쉬 속도
     private float lightningDashDuration = 0.2f; // 번개 대쉬 지속 시간
-    public LightningRange lightningRange; // 벽력일섬 범위
+    //public LightningRange lightningRange; // 벽력일섬 범위
+    public BoxCollider2D lightningCollider;
     void Awake()
     {
         player = GetComponent<Player>();
         animator = GetComponentInChildren<Animator>();
         trail = GetComponent<TrailRenderer>();
         trail.enabled = false;
-        lightningRange = GetComponent<LightningRange>();
+        lightningCollider = GetComponentInChildren<BoxCollider2D>();
+        lightningCollider.enabled = false;
         rigid = GetComponent<Rigidbody2D>();
     }
     public void ChargeLightning()
@@ -48,9 +50,10 @@ public class LightningDash : MonoBehaviour
         animator.SetBool("Attack", true);
         trail.enabled = true;  // 궤적 효과 켜기
 
-        if (lightningRange != null) // 공격 콜라이더 활성화
+        if (lightningCollider != null) // 공격 콜라이더 활성화
         {
-            lightningRange.dashColliderObj.SetActive(true);
+            lightningCollider.enabled = true;
+            Debug.Log("벽력일섬 콜라이더 활성화");
         }
 
         yield return new WaitForSeconds(1f); // 선딜
@@ -75,9 +78,10 @@ public class LightningDash : MonoBehaviour
         trail.enabled = false;  // 궤적 효과 켜기
 
         // 공격 범위 비활성화
-        if (lightningRange != null)
+        if (lightningCollider != null)
         {
-            lightningRange.dashColliderObj.SetActive(false);
+            lightningCollider.enabled = false;
+            Debug.Log("벽력일섬 콜라이더 비활성화");
         }
     }
 }

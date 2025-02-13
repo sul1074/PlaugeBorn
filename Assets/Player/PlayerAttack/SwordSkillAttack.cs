@@ -30,6 +30,7 @@ public class SwordSkillAttack : MonoBehaviour // 차징 공격 스크립트
         isCharging = true;
         chargeTime = 0f;
         chargeCollider.enabled = true;
+        Debug.Log("스킬 콜라이더 활성화");
         chargeEffect.SetActive(true);
     }
 
@@ -37,6 +38,7 @@ public class SwordSkillAttack : MonoBehaviour // 차징 공격 스크립트
     {
         isCharging = false;
         chargeCollider.enabled = false;
+        Debug.Log("스킬 콜라이더 꺼짐");
         chargeEffect.SetActive(false);
         if (cooldownTimer == 0) 
         {
@@ -95,7 +97,7 @@ public class SwordSkillAttack : MonoBehaviour // 차징 공격 스크립트
 
     void PerformAttack()
     {
-        // 데미지 및 스턴효과 적용
+        // 데미지 적용 (차징 범위만큼)
     }
 
 
