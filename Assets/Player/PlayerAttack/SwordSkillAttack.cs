@@ -16,12 +16,14 @@ public class SwordSkillAttack : MonoBehaviour // 차징 공격 스크립트
     public LayerMask enemyLayer;
     [SerializeField] private GameObject chargeEffect; // 원 스프라이트
     private Animator playerAnimator;
+    private Stat stat;
     void Start()
     {
         chargeCollider = GetComponentInChildren<CircleCollider2D>();
         chargeCollider.enabled = false; // 처음엔 비활성화
         chargeEffect.SetActive(false);
         playerAnimator = FindObjectOfType<Player>().GetComponentInChildren<Animator>();
+        stat = GetComponent<Stat>();
     }
 
     public void StartCharging()
@@ -50,6 +52,11 @@ public class SwordSkillAttack : MonoBehaviour // 차징 공격 스크립트
 
     void Update()
     {
+        Player player = FindObjectOfType<Player>(); 
+        if (player != null && player.GetComponent<Stat>().playerHealth <= 0) 
+        {
+            return;
+        }  
         // 쿨타임 감소 (0 이하로 내려가지 않도록 제한)
         cooldownTimer = Mathf.Max(0, cooldownTimer - Time.deltaTime);
 
@@ -93,12 +100,31 @@ public class SwordSkillAttack : MonoBehaviour // 차징 공격 스크립트
         }
     }
 
-
-
     void PerformAttack()
     {
-        // 데미지 적용 (차징 범위만큼)
+        // 차징 공격 범위 안의 적들을 감지하기 위한 Collider2D 배열
+        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, chargeCollider.radius, enemyLayer);
+        
+        foreach (Collider2D enemy in enemiesInRange)
+        {
+            // 적이 충돌하면 데미지를 적용
+            /* Stat enemyStat = enemy.GetComponent<Stat>(); // 적의 Stat 스크립트를 가져옴
+
+            if (enemyStat != null)
+            {
+                float skillMultiplier = 2; // 스킬 배수
+                float enemyDefense = enemyStat.enemyDefense; // 적의 방어력 가져오기
+                playerDamage damageCalculator = GetComponent<playerDamage>(); // playerDamage 컴포넌트 가져오기
+                
+                if (damageCalculator != null)
+                {
+                    // 데미지 계산
+                    float finalDamage = damageCalculator.CalculateDamage(enemyDefense, skillMultiplier);
+                    enemyStat.TakeDamage(finalDamage); // 적에게 데미지를 입힘
+                }
+            } */
+            Debug.Log("스킬 공격");
+        } 
+        
     }
-
-
 }

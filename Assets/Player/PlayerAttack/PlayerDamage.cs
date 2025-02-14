@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerDamage : MonoBehaviour 
+public class playerDamage : MonoBehaviour // 데미지 계산함수
 {
     private Stat stat;
     private void Awake()

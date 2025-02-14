@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackMove : MonoBehaviour // 기본 평타 및 스킬 모션, 데미지 (벽력일섬은 PlayerMove에 위치)
+public class PlayerAttackMove : MonoBehaviour // 기본 평타 및 스킬 모션, 데미지 
 {
     private Stat stat;
     private Animator animator;
@@ -43,7 +43,7 @@ public class PlayerAttackMove : MonoBehaviour // 기본 평타 및 스킬 모션
         
     }
 
-    void PlayerSkillAttackStart() // 데미지 및 능력 추가 필요 (쿨타임 + 차징 범위공격 및 스턴효과 생각중)
+    void PlayerSkillAttackStart() 
     {
         swordSkillAttack.StartCharging();
     }

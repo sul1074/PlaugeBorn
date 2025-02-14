@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageRange : playerDamage // 데미지 계산 상속받음
+public class DamageRange : playerDamage // 콜라이더 활성화 시 공격하는 함수
 {
     public LayerMask enemyLayer; // 적 레이어 감지 LayerMask
 
