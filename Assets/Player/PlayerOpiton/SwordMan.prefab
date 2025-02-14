@@ -2675,6 +2675,7 @@ MonoBehaviour:
   dashSpeed: 6
   dashDuration: 0.2
   isDashing: 0
+  attackRange: {fileID: 513138910952525280}
 --- !u!114 &1104926036004327633
 MonoBehaviour:
   m_ObjectHideFlags: 0

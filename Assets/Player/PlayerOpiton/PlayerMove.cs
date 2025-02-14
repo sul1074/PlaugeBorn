@@ -16,6 +16,8 @@ public class Player : MonoBehaviour // 움직임 스크립트
     private SwordSkillAttack swordSkillAttack;
     private float dashCoolTime = 1f;
     private float dashCoolTimer = 0f;
+    [SerializeField] private GameObject attackRange; // 평타 범위 오브젝트
+    private CapsuleCollider2D playerbody; // 회피 콜라이더
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -24,6 +26,10 @@ public class Player : MonoBehaviour // 움직임 스크립트
         afterImage = GetComponent<AfterImage>();
         swordSkillAttack = GetComponent<SwordSkillAttack>();
         lightningDash = GetComponent<LightningDash>();
+        playerbody = GetComponent<CapsuleCollider2D>();
+        attackRange.SetActive(true);
+        this.enabled = true;
+        
     }
 
     void Update()
@@ -92,35 +98,19 @@ public class Player : MonoBehaviour // 움직임 스크립트
         }
     }
 
-    IEnumerator Dash(float speed, float duration) // 일반 대쉬 (회피), 기능 추가 예정
+    IEnumerator Dash(float speed, float duration) // 일반 대쉬 (회피)
     {
         isDashing = true;
         afterImage.StartGhosting();
+        playerbody.enabled = false;
+        Debug.Log("회피 켜짐");
 
         Vector2 dashDirection = inputVec.normalized;
         if (dashDirection == Vector2.zero)
         {
             dashDirection = Vector2.left * Mathf.Sign(transform.localScale.x);
         }
-
-    // 회피 기능 구현 (테스트 예정)
-    /*Collider2D playerCollider = GetComponent<Collider2D>();
-
-    // Enemy 태그를 가진 모든 적의 Collider2D와 충돌 무시
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    List<Collider2D> enemyColliders = new List<Collider2D>();
-
-    foreach (GameObject enemy in enemies)
-    {
-        Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
-        if (enemyCollider != null)
-        {
-            Physics2D.IgnoreCollision(playerCollider, enemyCollider, true);
-            enemyColliders.Add(enemyCollider);
-        }
-    }*/
-
-
+        
         float startTime = Time.time;
         while (Time.time < startTime + duration)
         {
@@ -131,14 +121,18 @@ public class Player : MonoBehaviour // 움직임 스크립트
         afterImage.StopGhosting();
         isDashing = false;
         dashCoolTimer = dashCoolTime;
+        playerbody.enabled = true;
+        Debug.Log("회피 꺼짐");
     }
 
     
     public void Die()
     {
         isDashing = false;
+        inputVec = Vector2.zero; // 입력 초기화
         animator.SetTrigger("Die");
         rigid.velocity = Vector2.zero; // 움직임 정지
+        attackRange.SetActive(false);
         this.enabled = false; // 조작 비활성화
     }
 
