@@ -37,7 +37,7 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
 
             // startRandomlyEachIteration 활성화시, 매 반복마다 walk 시작점을 갱신
             if (parameters.startRandomlyEachIteration)
-                curr = path.ElementAt(UnityEngine.Random.Range(0, path.Count)); 
+                curr = floorPositions.ElementAt(UnityEngine.Random.Range(0, floorPositions.Count)); 
         }
 
         return floorPositions;
