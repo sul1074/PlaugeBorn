@@ -39,18 +39,37 @@ public static class ProceduralGenerationAlgo
     public static List<Vector2Int> RandomWalkCorridor(Vector2Int startPos, int corridorLength)
     {
         List<Vector2Int> corridor = new List<Vector2Int>(); // 복도 경로를 저장하는 리스트
-        corridor.Add(startPos);
-
         Vector2Int dir = Direction2D.GetRandomCardinalDirection(); // 복도가 생성될 방향
         Vector2Int curr = startPos;
+
+        corridor.Add(curr);
+        corridor.Add(CalculateAdditionalCorridorTile(curr, dir));
 
         for (int i = 0; i < corridorLength; i++)
         {
             curr += dir; // 현재 위치에서 한 방향으로 나아감
             corridor.Add(curr);
+            corridor.Add(CalculateAdditionalCorridorTile(curr, dir));
         }
 
         return corridor;
+    }
+
+    /// <summary>
+    /// 복도를 한 칸 확장함
+    /// </summary>
+    private static Vector2Int CalculateAdditionalCorridorTile(Vector2Int currentPosition, Vector2Int direction)
+    {
+        Vector2Int offset = Vector2Int.zero;
+        if (direction.y > 0)
+            offset.x = 1;
+        else if (direction.y < 0)
+            offset.x = -1;
+        else if (direction.x > 0)
+            offset.y = -1;
+        else
+            offset.y = 1;
+        return currentPosition + offset;
     }
 
     /// <summary>
@@ -92,7 +111,6 @@ public static class ProceduralGenerationAlgo
                     roomsList.Add(room);
                 }
             }
-            // 수직으로 먼저 나누고, 수평으로 나누도록 함
             else
             {
                 // 너비가 최소 조건 2배 이상일 때만 수직으로 나눌 수 있음.
