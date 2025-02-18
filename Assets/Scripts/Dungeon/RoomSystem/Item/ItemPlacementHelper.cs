@@ -24,6 +24,7 @@ public class ItemPlacementHelper
     public ItemPlacementHelper(HashSet<Vector2Int> roomFloor, HashSet<Vector2Int> roomFloorNoCorridor)
     {
         Graph graph = new Graph(roomFloor); // 방의 바닥 좌표 정보를, 그래프로 변환
+
         this.roomFloorNoCorridor = roomFloorNoCorridor;
 
         // 각 바닥 좌표의 타입 계산

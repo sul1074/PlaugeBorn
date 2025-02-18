@@ -1,23 +1,43 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ´øÀü µ¥ÀÌÅÍ¸¦ °¡Áö°í ÀÖÀ½.(´øÀü ³» ¹æ ¸ñ·Ï, º¹µµ ÁÂÇ¥, ¹Ù´Ú ÁÂÇ¥)
+/// ë˜ì „ ë°ì´í„°ë¥¼ ê°€ì§€ê³  ìˆìŒ.(ë˜ì „ ë‚´ ë°© ëª©ë¡, ë³µë„ ì¢Œí‘œ, ë°”ë‹¥ ì¢Œí‘œ)
 /// </summary>
 public class DungeonData
 {
-    public Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary;
-    public HashSet<Vector2Int> floorPositions;
-    public HashSet<Vector2Int> corridorPositions;
+    private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary;
+    private HashSet<Vector2Int> floorPositions;
+    private HashSet<Vector2Int> corridorPositions;
+
+    // ì½ê¸° ì „ìš© í”„ë¡œí¼í‹°
+    public IReadOnlyDictionary<Vector2Int, HashSet<Vector2Int>> RoomsDictionary => roomsDictionary;
+    public IReadOnlyCollection<Vector2Int> FloorPositions => floorPositions;
+    public IReadOnlyCollection<Vector2Int> CorridorPositions => corridorPositions;
+
+    public void RemoveRoom(Vector2Int roomCenter)
+    {
+        roomsDictionary.Remove(roomCenter);
+    }
+
+    public DungeonData(Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary, 
+                       HashSet<Vector2Int> floorPositions, 
+                       HashSet<Vector2Int> corridorPositions)
+    {
+        this.roomsDictionary = new Dictionary<Vector2Int, HashSet<Vector2Int>>(roomsDictionary);
+        this.floorPositions = new HashSet<Vector2Int>(floorPositions);
+        this.corridorPositions = new HashSet<Vector2Int>(corridorPositions);
+    }
 
     /// <summary>
-    /// º¹µµ¸¦ Á¦¿ÜÇÑ ÇØ´ç ¹æÀÇ ÁÂÇ¥ ¹İÈ¯
+    /// ë³µë„ë¥¼ ì œì™¸í•œ í•´ë‹¹ ë°©ì˜ ì¢Œí‘œ ë°˜í™˜
     /// </summary>
     public HashSet<Vector2Int> GetRoomFloorWithoutCorridors(Vector2Int dictionaryKey)
     {
         HashSet<Vector2Int> roomFloorNoCorridors = new HashSet<Vector2Int>(roomsDictionary[dictionaryKey]);
-        roomFloorNoCorridors.ExceptWith(corridorPositions); // º¹µµ ÁÂÇ¥¸¦ Á¦°Å
+
+        roomFloorNoCorridors.ExceptWith(corridorPositions); // ë³µë„ ì¢Œí‘œë¥¼ ì œê±°
 
         return roomFloorNoCorridors;
     }

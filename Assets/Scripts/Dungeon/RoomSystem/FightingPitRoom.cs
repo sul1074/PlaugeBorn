@@ -7,8 +7,11 @@ public class FightingPitRoom : RoomGenerator
     [SerializeField]
     private PrefabPlacer prefabPlacer;
 
-    public List<EnemyPlacementData> enemyPlacementData;
-    public List<ItemPlacementData> itemData;
+    [SerializeField]
+    private List<EnemyPlacementData> enemyPlacementData;
+
+    [SerializeField]
+    private List<ItemPlacementData> itemData;
 
     public override List<GameObject> ProcessRoom(Vector2Int roomCenter, HashSet<Vector2Int> roomFloor, HashSet<Vector2Int> roomFloorNoCorridors)
     {

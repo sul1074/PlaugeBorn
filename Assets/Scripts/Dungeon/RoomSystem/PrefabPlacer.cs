@@ -21,7 +21,7 @@ public class PrefabPlacer : MonoBehaviour
             for (int i = 0; i < placementData.Quantity; i++)
             {
                 // 배치 가능한 좌표를 생성
-                Vector2? possiblePlacementSpot = itemPlacementHelper.GetItemPlacementPosition(
+                Vector2? possiblePlacementSpot = itemPlacementHelper. GetItemPlacementPosition(
                     PlacementType.OpenSpace,
                     100,
                     placementData.EnemySize,
@@ -32,6 +32,10 @@ public class PrefabPlacer : MonoBehaviour
                 if (possiblePlacementSpot.HasValue)
                 { 
                     placedObjects.Add(CreateObject(placementData.EnemyPrefab, possiblePlacementSpot.Value + new Vector2(0.5f, 0.5f))); //Instantiate(placementData.enemyPrefab,possiblePlacementSpot.Value + new Vector2(0.5f, 0.5f), Quaternion.identity)
+                }
+                else
+                {
+                    Debug.Log("추가 못함");
                 }
             }
         }
@@ -65,6 +69,8 @@ public class PrefabPlacer : MonoBehaviour
                 {
                     placedObjects.Add(PlaceItem(placementData.ItemData, possiblePlacementSpot.Value));
                 }
+
+                else Debug.Log("추가 못함");
             }
         }
         return placedObjects;

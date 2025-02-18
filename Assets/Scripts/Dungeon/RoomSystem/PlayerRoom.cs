@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class PlayerRoom : RoomGenerator
 {
-    public GameObject player;
+    [SerializeField]
+    private GameObject player;
 
-    public List<ItemPlacementData> itemData;
+    [SerializeField]
+    private List<ItemPlacementData> itemData;
 
     [SerializeField]
     private PrefabPlacer prefabPlacer;
@@ -56,9 +59,10 @@ public abstract class PlacementData
 }
 
 // 아이템 배치 데이터
-[SerializeField]
+[Serializable]
 public class ItemPlacementData : PlacementData
 {
+    [SerializeField]
     private ItemData itemData;
 
     public ItemData ItemData
@@ -69,10 +73,13 @@ public class ItemPlacementData : PlacementData
 }
 
 // 적 배치 데이터
-[SerializeField]
+[Serializable]
 public class EnemyPlacementData : PlacementData
 {
+    [SerializeField]
     private GameObject enemyPrefab;
+
+    [SerializeField]
     private Vector2Int enemySize = Vector2Int.one;
 
     public GameObject EnemyPrefab

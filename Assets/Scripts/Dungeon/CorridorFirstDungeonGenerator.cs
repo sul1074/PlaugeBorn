@@ -34,11 +34,11 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     {
         CorridorFirstDungeonGeneration();
         DungeonData dungeonData = new DungeonData
-        {
-            roomsDictionary = this.roomsDictionary,
-            corridorPositions = this.corridorPositions,
-            floorPositions = this.floorPositions
-        };
+        (
+            this.roomsDictionary,
+            this.floorPositions,
+            this.corridorPositions
+        );
         OnDungeonFloorReady?.Invoke(dungeonData);
     }
 
@@ -105,11 +105,11 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         GenerateRooms(potentialRoomPositions);
 
         DungeonData dungeonData = new DungeonData
-        {
-            roomsDictionary = this.roomsDictionary,
-            corridorPositions = this.corridorPositions,
-            floorPositions = this.floorPositions
-        };
+        (
+            this.roomsDictionary,
+            this.corridorPositions,
+            this.floorPositions
+        );
         OnDungeonFloorReady?.Invoke(dungeonData);
     }
 
