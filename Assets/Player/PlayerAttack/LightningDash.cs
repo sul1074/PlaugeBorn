@@ -45,7 +45,7 @@ public class LightningDash : MonoBehaviour
         }
     }
 
-    IEnumerator LightDash(float speed, float duration) // 벽력일섬 함수 (회피 추가 필요(플레이어 콜라이더 비활성화))
+    IEnumerator LightDash(float speed, float duration) // 벽력일섬 함수
     {
         player.isDashing = true;
         playerbody.enabled = false;
@@ -80,6 +80,7 @@ public class LightningDash : MonoBehaviour
         animator.speed = 1f;
         trail.enabled = false;  // 궤적 효과 끄기
         playerbody.enabled = true;
+        
         // 공격 범위 비활성화
         if (lightningCollider != null)
         {
