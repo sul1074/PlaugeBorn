@@ -14,6 +14,7 @@ public class LightningDash : MonoBehaviour
     private float lightningDashDuration = 0.2f; // 번개 대쉬 지속 시간
     public BoxCollider2D lightningCollider;
     private CapsuleCollider2D playerbody;
+    private LightningStackUI stackUI;
     void Awake()
     {
         player = GetComponent<Player>();
@@ -24,6 +25,7 @@ public class LightningDash : MonoBehaviour
         playerbody = GetComponent<CapsuleCollider2D>();
         lightningCollider.enabled = false;
         rigid = GetComponent<Rigidbody2D>();
+        stackUI = FindObjectOfType<LightningStackUI>();
     }
 
     // 벽력일섬 충전 스택 관리하는 함수
@@ -32,6 +34,7 @@ public class LightningDash : MonoBehaviour
         if (lightningCharges < maxLightningCharges)
         {
             lightningCharges++;
+            stackUI.UpdateStacks(lightningCharges);
         }
     }
 
@@ -42,6 +45,7 @@ public class LightningDash : MonoBehaviour
         {
             StartCoroutine(LightDash(lightningDashSpeed, lightningDashDuration));
             lightningCharges--; // 사용 후 스택 감소
+            stackUI.UpdateStacks(lightningCharges);
         }
     }
 
