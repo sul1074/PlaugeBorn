@@ -8,6 +8,9 @@ using UnityEngine.Events;
 
 public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 {
+    private List<List<Vector2Int>> corridorList = new List<List<Vector2Int>>();
+    private List<Color> corridorColors = new List<Color>();
+
     [SerializeField] 
     private int corridorLength = 14, corridorCount = 5;
 
@@ -71,6 +74,9 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         Vector2Int currPos = base.startPos;
         dungeonStartPositions.Add(currPos);
 
+        corridorList.Clear();
+        corridorColors.Clear();
+
         for (int i = 0; i < corridorCount; i++)
         {
             List<Vector2Int> corridor = ProceduralGenerationAlgo.RandomWalkCorridor(currPos, corridorLength);
@@ -78,6 +84,9 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             currPos = corridor[corridor.Count - 1]; // 마지막으로 생성된 복도 좌표를 시작점으로. 그래야 복도가 이어지면서 생성됨
             dungeonStartPositions.Add(currPos); // 복도가 만들어지는 시작점을 던전을 만들기 위한 좌표로 추가
             floorPositions.UnionWith(corridor); // 생성된 복도 좌표 집합을 추가
+
+            corridorList.Add(corridor); // 각 복도를 리스트에 저장
+            corridorColors.Add(UnityEngine.Random.ColorHSV()); // 각 복도별로 고유한 색 추가
         }
 
         corridorPositions = new HashSet<Vector2Int>(floorPositions);
@@ -196,12 +205,25 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 i++;
             }
         }
-        if (showCorridorsGizmo && corridorPositions != null)
+        
+        //if (showCorridorsGizmo && corridorPositions != null)
+        //{
+        //    Gizmos.color = Color.magenta;
+        //    foreach (var corridorTile in corridorPositions)
+        //    {
+        //        Gizmos.DrawCube((Vector2)corridorTile + new Vector2(0.5f, 0.5f), Vector3.one);
+        //    }
+        //}
+
+        if (showCorridorsGizmo && corridorList.Count > 0)
         {
-            Gizmos.color = Color.magenta;
-            foreach (var corridorTile in corridorPositions)
+            for (int i = 0; i < corridorList.Count; i++)
             {
-                Gizmos.DrawCube((Vector2)corridorTile + new Vector2(0.5f, 0.5f), Vector3.one);
+                Gizmos.color = corridorColors[i]; // 복도별 색상 적용
+                foreach (var tile in corridorList[i])
+                {
+                    Gizmos.DrawCube((Vector2)tile + new Vector2(0.5f, 0.5f), Vector3.one);
+                }
             }
         }
     }

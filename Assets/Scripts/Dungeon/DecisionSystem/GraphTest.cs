@@ -20,6 +20,13 @@ public class GraphTest : MonoBehaviour
         highestValue = dijkstraResult.Values.Max();
         graphReady = true;
     }
+    
+    public Vector2Int getHighestValueTile()
+    {
+        Vector2Int highestValueTile = dijkstraResult.FirstOrDefault(entry => entry.Value == highestValue).Key;
+
+        return highestValueTile;
+    }
 
 
     private void OnDrawGizmosSelected()

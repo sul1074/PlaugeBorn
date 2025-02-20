@@ -16,6 +16,7 @@ public class ItemData : ScriptableObject
     [SerializeField] private bool nonDestructible;
 
     // 프로퍼티 (Getter, Setter)
+
     public Sprite Sprite
     {
         get => sprite;

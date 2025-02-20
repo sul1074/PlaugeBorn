@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,9 +95,6 @@ public class ItemPlacementHelper
     /// <summary>
     /// 1x1 보다 큰 아이템을 배치할 공간이 충분한지 확인하고, 가능하면 좌표 리스트를 반환
     /// </summary>
-    /// <param name="originPos"></param>
-    /// <param name="size"></param>
-    /// <param name="addOffset"></param>
     private (bool, List<Vector2Int>) PlaceBigItem(Vector2Int originPos, Vector2Int size, bool addOffset)
     {
         List<Vector2Int> positions = new List<Vector2Int>() { originPos };
@@ -133,4 +131,62 @@ public enum PlacementType
 {
     OpenSpace,
     NearWall
+}
+
+// 배치할 개수 랜덤하게 설정
+public abstract class PlacementData
+{
+    [SerializeField]
+    [Min(0)]
+    private int minQuantity = 0;
+
+    [SerializeField]
+    [Min(0)]
+    [Tooltip("Max is inclusive")]
+    private int maxQuantity = 0;
+
+    [SerializeField]
+    private int quantity => UnityEngine.Random.Range(minQuantity, maxQuantity + 1);
+
+    public int Quantity
+    {
+        get => quantity;
+    }
+}
+
+// 아이템 배치 데이터
+[Serializable]
+public class ItemPlacementData : PlacementData
+{
+    [SerializeField]
+    private ItemData itemData;
+
+    public ItemData ItemData
+    {
+        get { return itemData; }
+        set { itemData = value; }
+    }
+}
+
+// 적 배치 데이터
+[Serializable]
+public class EnemyPlacementData : PlacementData
+{
+    [SerializeField]
+    private GameObject enemyPrefab;
+
+    [SerializeField]
+    private Vector2Int enemySize = Vector2Int.one;
+
+    public GameObject EnemyPrefab
+    {
+        get { return enemyPrefab; }
+        set { enemyPrefab = value; }
+    }
+
+    public Vector2Int EnemySize
+    {
+        get { return enemySize; }
+        set { enemySize = value; }
+    }
 }

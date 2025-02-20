@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e53315e7c135bcb4aa4b33ef6b4c9553, type: 3}
-  m_Name: SimpleRandomWalkParameters_Island
+  m_Script: {fileID: 11500000, guid: a81d3cdfadd3c7f4caa66c7a124d4dea, type: 3}
+  m_Name: Statue
   m_EditorClassIdentifier: 
-  iterations: 75
-  walkLength: 75
-  startRandomlyEachIteration: 0
+  sprite: {fileID: 21300114, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
+  size: {x: 1, y: 2}
+  placementType: 0
+  addOffset: 1
+  health: 3
+  nonDestructible: 0

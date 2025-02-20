@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class DungeonData
 {
-    private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary;
+    private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary; // Key: 방의 중심 좌표, Value: 방의 바닥(타일) 좌표 집합
     private HashSet<Vector2Int> floorPositions;
     private HashSet<Vector2Int> corridorPositions;
 
