@@ -39,18 +39,37 @@ public static class ProceduralGenerationAlgo
     public static List<Vector2Int> RandomWalkCorridor(Vector2Int startPos, int corridorLength)
     {
         List<Vector2Int> corridor = new List<Vector2Int>(); // 복도 경로를 저장하는 리스트
-        corridor.Add(startPos);
-
         Vector2Int dir = Direction2D.GetRandomCardinalDirection(); // 복도가 생성될 방향
         Vector2Int curr = startPos;
+
+        corridor.Add(curr);
+        corridor.Add(CalculateAdditionalCorridorTile(curr, dir));
 
         for (int i = 0; i < corridorLength; i++)
         {
             curr += dir; // 현재 위치에서 한 방향으로 나아감
             corridor.Add(curr);
+            corridor.Add(CalculateAdditionalCorridorTile(curr, dir));
         }
 
         return corridor;
+    }
+
+    /// <summary>
+    /// 복도를 한 칸 확장함
+    /// </summary>
+    private static Vector2Int CalculateAdditionalCorridorTile(Vector2Int currentPosition, Vector2Int direction)
+    {
+        Vector2Int offset = Vector2Int.zero;
+        if (direction.y > 0)
+            offset.x = 1;
+        else if (direction.y < 0)
+            offset.x = -1;
+        else if (direction.x > 0)
+            offset.y = -1;
+        else
+            offset.y = 1;
+        return currentPosition + offset;
     }
 
     /// <summary>
@@ -73,32 +92,31 @@ public static class ProceduralGenerationAlgo
 
             if (room.size.x < minWidth || room.size.y < minHeight) continue; // 더 이상 나눌 수 없으면 패스
             
-            // 수평으로 먼저 나누고, 수직으로 나누도록 함.
-            if (Random.value < 0.5f) // 던전 구조의 랜덤성과 다양성을 위해 랜덤하게
+            // 구조 랜덤성을 위해 나누는 방향(수평, 수직)을 랜덤하게 정함
+            if (Random.value < 0.5f) 
             {
                 // 높이가 최소 조건 2배 이상일 때만 수평으로 나눌 수 있음.
                 if (room.size.y >= minHeight * 2)
                 {
-                    SplitHorizontally(minWidth, roomsQueue, room);
+                    SplitHorizontally(minHeight, roomsQueue, room);
                 }
                 // 너비가 최소 조건 2배 이상일 때만 수직으로 나눌 수 있음.
                 else if (room.size.x >= minWidth * 2)
                 {
-                    SplitVertically(minHeight, roomsQueue, room);
+                    SplitVertically(minWidth, roomsQueue, room);
                 }
                 // 더 이상 나눌 수 없으면, 최종 방 리스트에 추가
-                else
+                else if (room.size.x >= minWidth && room.size.y >= minHeight)
                 {
                     roomsList.Add(room);
                 }
             }
-            // 수직으로 먼저 나누고, 수평으로 나누도록 함
             else
             {
                 // 너비가 최소 조건 2배 이상일 때만 수직으로 나눌 수 있음.
                 if (room.size.x >= minWidth * 2)
                 {
-                    SplitVertically(minHeight, roomsQueue, room);
+                    SplitVertically(minWidth, roomsQueue, room);
                 }
                 // 높이가 최소 조건 2배 이상일 때만 수평으로 나눌 수 있음.
                 else if (room.size.y >= minHeight * 2)
@@ -106,7 +124,7 @@ public static class ProceduralGenerationAlgo
                     SplitHorizontally(minHeight, roomsQueue, room);
                 }
                 // 더 이상 나눌 수 없으면, 최종 방 리스트에 추가
-                else
+                else if (room.size.x >= minWidth && room.size.y >= minHeight)
                 {
                     roomsList.Add(room);
                 }
@@ -116,9 +134,9 @@ public static class ProceduralGenerationAlgo
         return roomsList;
     }
 
-    private static void SplitVertically(int minHeight, Queue<BoundsInt> roomsQueue, BoundsInt room)
+    private static void SplitVertically(int minWidth, Queue<BoundsInt> roomsQueue, BoundsInt room)
     {
-        int xSplit = Random.Range(1, room.size.x); // room의 x좌표 분할지점을 랜덤하게 계산
+        int xSplit = Random.Range(minWidth, room.size.x - minWidth); // room의 x좌표 분할지점을 랜덤하게 계산
 
         BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(xSplit, room.size.y, room.size.z)); // min ~ xSplit까지 나눔
         BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x + xSplit, room.min.y, room.min.z),
@@ -128,11 +146,11 @@ public static class ProceduralGenerationAlgo
         roomsQueue.Enqueue(room2);
     }
      
-    private static void SplitHorizontally(int minWidth, Queue<BoundsInt> roomsQueue, BoundsInt room)
+    private static void SplitHorizontally(int minHeight, Queue<BoundsInt> roomsQueue, BoundsInt room)
     {
-        int ySplit = Random.Range(1, room.size.y); // room의 y좌표 분할지점을 랜덤하게 계산
+        int ySplit = Random.Range(minHeight, room.size.y - minHeight); // room의 y좌표 분할지점을 랜덤하게 계산
 
-        BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(room.size.x, ySplit, room.size.y)); // min ~ ySplit까지 나눔
+        BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(room.size.x, ySplit, room.size.z)); // min ~ ySplit까지 나눔
         BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x, room.min.y + ySplit, room.min.z),
             new Vector3Int(room.size.x, room.size.y - ySplit, room.size.z)); // ySplit ~ room의 y좌표 나머지 까지 나눔
 

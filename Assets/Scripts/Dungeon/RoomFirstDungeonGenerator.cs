@@ -28,7 +28,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private void CreateRooms()
     {
-        List<BoundsInt> roomsList = ProceduralGenerationAlgo.BinarySpacePartitioning(new BoundsInt((Vector3Int)base.startPos,
+        List<BoundsInt> roomsList = ProceduralGenerationAlgo.BinarySpacePartitioning(new BoundsInt((Vector3Int)startPos, 
             new Vector3Int(dungeonWidth, dungeonHeight, 0)), minRoomWidth, minRoomHeight); // 던전 영역을 분할하여 방 리스트 생성
 
         // 분할된 방들에 대해 타일을 채우기 위해, 방 내부 범위 안의 모든 좌표를 계산

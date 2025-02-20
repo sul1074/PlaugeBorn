@@ -55,5 +55,6 @@ public class MeleeEnemyMovement : MonoBehaviour, IEnemyMovement
     {
         // 태그로 플레이어 찾기
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        
     }
 }

@@ -34,5 +34,4 @@ public class AttackRange : MonoBehaviour // 평타 범위 관련 코드
         yield return new WaitForSeconds(duration); // 일정 시간 대기
         attackCollider.enabled = false; // 다시 비활성화
     }
-
 }
