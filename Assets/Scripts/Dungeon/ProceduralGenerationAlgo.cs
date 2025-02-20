@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-// ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 public static class ProceduralGenerationAlgo
 {
     /// <summary>
-    /// HashSetï¿½ï¿½ C++ï¿½ï¿½ unordered_setï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ X
-    /// startPositionï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ walkLenghï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ walk
-    /// walkLength ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ HashSet<Vector2Int> ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½È¯
+    /// startPositionÀ¸·ÎºÎÅÍ walkLengh¸¸Å­ ·£´ýÇÑ ±æÀÌ¸¦ walk.
+    /// walkLength °ª¸¸Å­ ÁøÇàÇÑ °æ·ÎÀÇ ÁýÇÕÀ» HashSet<Vector2Int> ÇüÅÂ·Î ¹ÝÈ¯
     /// </summary>
-    /// <param name="startPos"> random walkï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</param>
-    /// <param name="walkLength">ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ walk ï¿½ï¿½</param>
+    /// <param name="startPos"> random walkÀÇ ½ÃÀÛÁ¡</param>
+    /// <param name="walkLength">ÇÑ ¹øÀÇ ¹Ýº¹¿¡¼­ ÁøÇàÇÒ walk ¼ö</param>
     /// <returns></returns>
     public static HashSet<Vector2Int> SimpleRandomWalk(Vector2Int startPos, int walkLength)
     {
@@ -21,7 +20,7 @@ public static class ProceduralGenerationAlgo
 
         for (int i = 0; i < walkLength; i++)
         {
-            Vector2Int next = prevPos + Direction2D.GetRandomCardinalDirection(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+            Vector2Int next = prevPos + Direction2D.GetRandomCardinalDirection(); // ´ÙÀ½À¸·Î ÀÌµ¿ÇÒ ·£´ý À§Ä¡
 
             path.Add(next);
             prevPos = next;
@@ -31,17 +30,16 @@ public static class ProceduralGenerationAlgo
     }
 
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ walk ï¿½ï¿½Ç¥ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ List ï¿½ï¿½ï¿½. HashSetï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½.
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ walk ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+    /// ÁöÁ¤µÈ ½ÃÀÛ À§Ä¡¿¡¼­ ½ÃÀÛÇÏ¿© ·£´ýÇÑ ¹æÇâÀ¸·Î ÀÏÁ¤ ±æÀÌ¸¸Å­ º¹µµ¸¦ »ý¼º.
+    /// ¸¶Áö¸·À¸·Î ÁøÇàÇÑ walk ÁÂÇ¥¿¡¼­ ´Ù½Ã º¹µµ¸¦ ¸¸µé¾î¼­ ÀÚ¿¬½º·´°Ô °è¼Ó ÀÌ¾îÁöµµ·Ï ÇÔ.
     /// </summary>
-    /// <param name="startPos">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</param>
-    /// <param name="corridorLength">ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</param>
+    /// <param name="startPos">º¹µµ¸¦ »ý¼ºÇÒ ½ÃÀÛÁ¡</param>
+    /// <param name="corridorLength">ÇÑ ¹øÀÇ ¹Ýº¹¿¡¼­ »ý¼ºÇÒ º¹µµÀÇ ±æÀÌ</param>
     /// <returns></returns>
     public static List<Vector2Int> RandomWalkCorridor(Vector2Int startPos, int corridorLength)
     {
-        List<Vector2Int> corridor = new List<Vector2Int>(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
-        Vector2Int dir = Direction2D.GetRandomCardinalDirection(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        List<Vector2Int> corridor = new List<Vector2Int>(); // º¹µµ °æ·Î¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
+        Vector2Int dir = Direction2D.GetRandomCardinalDirection(); // º¹µµ°¡ »ý¼ºµÉ ¹æÇâ
         Vector2Int curr = startPos;
 
         corridor.Add(curr);
@@ -49,7 +47,7 @@ public static class ProceduralGenerationAlgo
 
         for (int i = 0; i < corridorLength; i++)
         {
-            curr += dir; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½
+            curr += dir; // ÇöÀç À§Ä¡¿¡¼­ ÇÑ ¹æÇâÀ¸·Î ³ª¾Æ°¨
             corridor.Add(curr);
             corridor.Add(CalculateAdditionalCorridorTile(curr, dir));
         }
@@ -58,7 +56,7 @@ public static class ProceduralGenerationAlgo
     }
 
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ä­ È®ï¿½ï¿½ï¿½ï¿½
+    /// º¹µµ¸¦ ÇÑ Ä­ È®ÀåÇÔ
     /// </summary>
     private static Vector2Int CalculateAdditionalCorridorTile(Vector2Int currentPosition, Vector2Int direction)
     {
@@ -75,11 +73,11 @@ public static class ProceduralGenerationAlgo
     }
 
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È¯
+    /// °ø°£À» ·£´ýÇÏ°Ô ³ª´©°í, ³ª´« ¹æµéÀÇ ÁýÇÕÀ» ¸®½ºÆ®·Î ¹ÝÈ¯
     /// </summary>
-    /// <param name="spaceToSplit">ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</param>
-    /// <param name="minWidth">ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½Êºï¿½</param>
-    /// <param name="minHeight">ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½</param>
+    /// <param name="spaceToSplit">³ª´­ °ø°£</param>
+    /// <param name="minWidth">´õ ÀÌ»ó ³ª´­ ¼ö ¾ø´Â ÃÖ¼Ò ³Êºñ</param>
+    /// <param name="minHeight">´õ ÀÌ»ó ³ª´­ ¼ö ¾ø´Â ÃÖ¼Ò ³ôÀÌ</param>
     /// <returns></returns>
     public static List<BoundsInt> BinarySpacePartitioning(BoundsInt spaceToSplit, int minWidth, int minHeight)
     {
@@ -92,22 +90,22 @@ public static class ProceduralGenerationAlgo
         {
             BoundsInt room = roomsQueue.Dequeue();
 
-            if (room.size.x < minWidth || room.size.y < minHeight) continue; // ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½
+            if (room.size.x < minWidth || room.size.y < minHeight) continue; // ´õ ÀÌ»ó ³ª´­ ¼ö ¾øÀ¸¸é ÆÐ½º
             
-            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
+            // ±¸Á¶ ·£´ý¼ºÀ» À§ÇØ ³ª´©´Â ¹æÇâ(¼öÆò, ¼öÁ÷)À» ·£´ýÇÏ°Ô Á¤ÇÔ
             if (Random.value < 0.5f) 
             {
-                // ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+                // ³ôÀÌ°¡ ÃÖ¼Ò Á¶°Ç 2¹è ÀÌ»óÀÏ ¶§¸¸ ¼öÆòÀ¸·Î ³ª´­ ¼ö ÀÖÀ½.
                 if (room.size.y >= minHeight * 2)
                 {
                     SplitHorizontally(minHeight, roomsQueue, room);
                 }
-                // ï¿½Êºï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+                // ³Êºñ°¡ ÃÖ¼Ò Á¶°Ç 2¹è ÀÌ»óÀÏ ¶§¸¸ ¼öÁ÷À¸·Î ³ª´­ ¼ö ÀÖÀ½.
                 else if (room.size.x >= minWidth * 2)
                 {
                     SplitVertically(minWidth, roomsQueue, room);
                 }
-                // ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½
+                // ´õ ÀÌ»ó ³ª´­ ¼ö ¾øÀ¸¸é, ÃÖÁ¾ ¹æ ¸®½ºÆ®¿¡ Ãß°¡
                 else if (room.size.x >= minWidth && room.size.y >= minHeight)
                 {
                     roomsList.Add(room);
@@ -115,17 +113,17 @@ public static class ProceduralGenerationAlgo
             }
             else
             {
-                // ï¿½Êºï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+                // ³Êºñ°¡ ÃÖ¼Ò Á¶°Ç 2¹è ÀÌ»óÀÏ ¶§¸¸ ¼öÁ÷À¸·Î ³ª´­ ¼ö ÀÖÀ½.
                 if (room.size.x >= minWidth * 2)
                 {
                     SplitVertically(minWidth, roomsQueue, room);
                 }
-                // ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+                // ³ôÀÌ°¡ ÃÖ¼Ò Á¶°Ç 2¹è ÀÌ»óÀÏ ¶§¸¸ ¼öÆòÀ¸·Î ³ª´­ ¼ö ÀÖÀ½.
                 else if (room.size.y >= minHeight * 2)
                 {
                     SplitHorizontally(minHeight, roomsQueue, room);
                 }
-                // ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½
+                // ´õ ÀÌ»ó ³ª´­ ¼ö ¾øÀ¸¸é, ÃÖÁ¾ ¹æ ¸®½ºÆ®¿¡ Ãß°¡
                 else if (room.size.x >= minWidth && room.size.y >= minHeight)
                 {
                     roomsList.Add(room);
@@ -138,11 +136,11 @@ public static class ProceduralGenerationAlgo
 
     private static void SplitVertically(int minWidth, Queue<BoundsInt> roomsQueue, BoundsInt room)
     {
-        int xSplit = Random.Range(minWidth, room.size.x - minWidth); // roomï¿½ï¿½ xï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½
+        int xSplit = Random.Range(minWidth, room.size.x - minWidth); // roomÀÇ xÁÂÇ¥ ºÐÇÒÁöÁ¡À» ·£´ýÇÏ°Ô °è»ê
 
-        BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(xSplit, room.size.y, room.size.z)); // min ~ xSplitï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(xSplit, room.size.y, room.size.z)); // min ~ xSplit±îÁö ³ª´®
         BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x + xSplit, room.min.y, room.min.z),
-            new Vector3Int(room.size.x - xSplit, room.size.y, room.size.z)); // xSplit ~ roomï¿½ï¿½ xï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            new Vector3Int(room.size.x - xSplit, room.size.y, room.size.z)); // xSplit ~ roomÀÇ xÁÂÇ¥ ³ª¸ÓÁö ±îÁö ³ª´®
 
         roomsQueue.Enqueue(room1);
         roomsQueue.Enqueue(room2);
@@ -150,17 +148,18 @@ public static class ProceduralGenerationAlgo
      
     private static void SplitHorizontally(int minHeight, Queue<BoundsInt> roomsQueue, BoundsInt room)
     {
-        int ySplit = Random.Range(minHeight, room.size.y - minHeight); // roomï¿½ï¿½ yï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½
+        int ySplit = Random.Range(minHeight, room.size.y - minHeight); // roomÀÇ yÁÂÇ¥ ºÐÇÒÁöÁ¡À» ·£´ýÇÏ°Ô °è»ê
 
-        BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(room.size.x, ySplit, room.size.z)); // min ~ ySplitï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(room.size.x, ySplit, room.size.z)); // min ~ ySplit±îÁö ³ª´®
         BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x, room.min.y + ySplit, room.min.z),
-            new Vector3Int(room.size.x, room.size.y - ySplit, room.size.z)); // ySplit ~ roomï¿½ï¿½ yï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            new Vector3Int(room.size.x, room.size.y - ySplit, room.size.z)); // ySplit ~ roomÀÇ yÁÂÇ¥ ³ª¸ÓÁö ±îÁö ³ª´®
 
         roomsQueue.Enqueue(room1);
         roomsQueue.Enqueue(room2);
     }
+}
 
-// ï¿½ï¿½,ï¿½ï¿½,ï¿½ï¿½,ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (Cardinal Direction)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
+// »ó,ÇÏ,ÁÂ,¿ì Áß ·£´ýÇÑ (Cardinal Direction)Á÷±³ ¹æÇâÀ» ¹ÝÈ¯
 public static class Direction2D 
 {
     public static List<Vector2Int> cardinalDirectionsList = new List<Vector2Int>
@@ -169,6 +168,27 @@ public static class Direction2D
        new Vector2Int(1, 0), // Right
        new Vector2Int(0, -1), // Down
        new Vector2Int(-1, 0) // Left
+    };
+
+    public static List<Vector2Int> diagonalDirectionsList = new List<Vector2Int>
+    {
+       new Vector2Int(1, 1), // Up-Right
+       new Vector2Int(1, -1), // Right-Down
+       new Vector2Int(-1, -1), // Down-Left
+       new Vector2Int(-1, 1) // Left-Up
+    };
+
+    // ½Ã°è¹æÇâÀ¸·Î
+    public static List<Vector2Int> eightDirectionsList = new List<Vector2Int>
+    {
+        new Vector2Int(0, 1), // Up
+        new Vector2Int(1, 1), // Up-Right
+        new Vector2Int(1, 0), // Right
+        new Vector2Int(1, -1), // Right-Down
+        new Vector2Int(0, -1), // Down
+        new Vector2Int(-1, -1), // Down-Left
+        new Vector2Int(-1, 0), // Left
+        new Vector2Int(-1, 1) // Left-Up
     };
 
     public static Vector2Int GetRandomCardinalDirection() { return cardinalDirectionsList[Random.Range(0, cardinalDirectionsList.Count)]; }

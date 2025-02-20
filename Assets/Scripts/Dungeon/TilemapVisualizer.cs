@@ -6,27 +6,32 @@ using UnityEngine.Tilemaps;
 
 public class TilemapVisualizer : MonoBehaviour
 {
-    [SerializeField] private Tilemap floorTilemap; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ Å¸ï¿½Ï¸ï¿½
-    [SerializeField] private Tilemap wallTilemap; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ Å¸ï¿½Ï¸ï¿½
+    // ´øÀü ¹Ù´Ú°ú º®À» ±×¸± Å¸ÀÏ¸Ê
+    [SerializeField] 
+    private Tilemap floorTilemap, wallTilemap;
 
-    [SerializeField] private TileBase floorTile; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ú¿ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Å¸ï¿½ï¿½
-    [SerializeField] private TileBase wallTile; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Å¸ï¿½ï¿½
+    [SerializeField]
+    private TileBase floorTile, wallTop, wallSideRight, wallSideLeft, wallBottom, wallFull;
+
+    [SerializeField]
+    private TileBase wallInnerCornerDownLeft, wallInnerCornerDownRight,
+        wallDiagonalCornerDownRight, wallDiagonalCornerDownLeft, wallDiagonalCornerUpRight, wallDiagonalCornerUpLeft;
 
     /// <summary>
-    /// floorPositionsï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½é¿¡ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½. ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½Õ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½È­
+    /// floorPositions¿¡ ´ã±ä ÁÂÇ¥µé¿¡ Å¸ÀÏÀ» ±×¸®µµ·Ï ÇÏ´Â ÇÔ¼ö. ¿ÜºÎ¿¡¼­ ÁÂÇ¥ ÁýÇÕ¸¸ °¡Áö°í È£ÃâÇÒ ¼ö ÀÖµµ·Ï ÇÏ±â À§ÇØ ¸ðµâÈ­
     /// </summary>
-    /// <param name="floorPositions">Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½</param>
+    /// <param name="floorPositions">Å¸ÀÏÀ» ¹èÄ¡ÇÒ ÁÂÇ¥ ÁýÇÕ</param>
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {
         PaintTiles(floorPositions, floorTilemap, floorTile);
     }
 
     /// <summary>
-    /// Å¸ï¿½Ï¸Ê¿ï¿½ positionsï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+    /// Å¸ÀÏ¸Ê¿¡ positions¿¡ ´ã±ä ÁÂÇ¥ ÁýÇÕ¾ÈÀÇ ¸ðµç ÁÂÇ¥µé¿¡ ´ëÇØ Å¸ÀÏÀ» ±×¸®´Â ÇÔ¼ö
     /// </summary>
-    /// <param name="positions">Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½</param>
-    /// <param name="tilemap">Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ Å¸ï¿½Ï¸ï¿½</param>
-    /// <param name="tile">ï¿½×¸ï¿½ Å¸ï¿½ï¿½</param>
+    /// <param name="positions">Å¸ÀÏÀ» ¹èÄ¡ÇÒ ÁÂÇ¥ ÁýÇÕ</param>
+    /// <param name="tilemap">Å¸ÀÏÀ» ±×¸± Å¸ÀÏ¸Ê</param>
+    /// <param name="tile">±×¸± Å¸ÀÏ</param>
     private void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tilemap, TileBase tile)
     {
         foreach(Vector2Int pos in positions)
@@ -36,17 +41,21 @@ public class TilemapVisualizer : MonoBehaviour
     }
 
     /// <summary>
-    /// pos ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+    /// pos ÁÂÇ¥¿¡ ´ëÇØ ´ÜÀÏ Å¸ÀÏÀ» ±×¸®´Â ÇÔ¼ö
     /// </summary>
-    /// <param name="tilemap">Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ Å¸ï¿½Ï¸ï¿½</param>
-    /// <param name="tile">ï¿½×¸ï¿½ Å¸ï¿½ï¿½</param>
-    /// <param name="pos">Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ç¥</param>
+    /// <param name="tilemap">Å¸ÀÏÀ» ±×¸± Å¸ÀÏ¸Ê</param>
+    /// <param name="tile">±×¸± Å¸ÀÏ</param>
+    /// <param name="pos">Å¸ÀÏÀ» ¹èÄ¡ÇÒ ÁÂÇ¥</param>
     private void PaintSingleTile(Tilemap tilemap, TileBase tile, Vector2Int pos)
     {
         Vector3Int tilePos = tilemap.WorldToCell((Vector3Int)pos);
         tilemap.SetTile(tilePos, tile);
     }
-    internal void PaintSingleWallTile(Vector2Int pos)
+
+    /// <summary>
+    /// WallTypesHelper¿¡ Á¤ÀÇµÈ Á¤º¸¿Í Àü´Þ¹ÞÀº 2Áø¼ö Å¸ÀÔÀ» ºñ±³ÇÏ¿©, 2Áø¼ö Á¤º¸¿¡ ¸Â´Â ¹æÇâÀÇ ±âº» Á÷±³ ¹æÇâ º®À» »ý¼º
+    /// </summary>
+    internal void PaintSingleWallTile(Vector2Int pos, string binaryType)
     {
         int typeAsInt = Convert.ToInt32(binaryType, 2);
         TileBase tile = null;
@@ -67,7 +76,7 @@ public class TilemapVisualizer : MonoBehaviour
     }
 
     /// <summary>
-    /// Å¸ï¿½Ï¸Ê¿ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+    /// Å¸ÀÏ¸Ê¿¡ ±×¸° ¸ðµç Å¸ÀÏÀ» Á¦°ÅÇÏ´Â ÇÔ¼ö
     /// </summary>
     public void Clear()
     {
@@ -76,7 +85,7 @@ public class TilemapVisualizer : MonoBehaviour
     }
 
     /// <summary>
-    /// /// WallTypesHelperï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Þ¹ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½, 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ë°¢ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    /// /// WallTypesHelper¿¡ Á¤ÀÇµÈ Á¤º¸¿Í Àü´Þ¹ÞÀº 2Áø¼ö Å¸ÀÔÀ» ºñ±³ÇÏ¿©, 2Áø¼ö Á¤º¸¿¡ ¸Â´Â ´ë°¢ ¹æÇâ º®À» »ý¼º
     /// </summary>
     internal void PaintSingleCornerWall(Vector2Int pos, string binaryType)
     {
