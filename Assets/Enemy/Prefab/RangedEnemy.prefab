@@ -2988,7 +2988,7 @@ GameObject:
   - component: {fileID: 6370487857813168479}
   m_Layer: 6
   m_Name: RangedEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3047,8 +3047,8 @@ MonoBehaviour:
   AttackRange: 5
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
-  animator: {fileID: 0}
+    m_Bits: 8
+  animator: {fileID: 2800048067031618849}
 --- !u!114 &3908283777542230488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3061,7 +3061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51270fd71a2d9fd4eaf695f51e61d31a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
+  bullet: {fileID: 8045339922265897449, guid: 6a25bc75b07bbdd448e35ab726a6f789, type: 3}
 --- !u!114 &6345684411152528032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3117,7 +3117,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &6370487857813168479
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

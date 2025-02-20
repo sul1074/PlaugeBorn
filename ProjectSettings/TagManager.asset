@@ -8,6 +8,8 @@ TagManager:
   - Attack
   - Reward
   - Item
+  - EnemyAttack
+  - Enemy
   layers:
   - Default
   - TransparentFX
