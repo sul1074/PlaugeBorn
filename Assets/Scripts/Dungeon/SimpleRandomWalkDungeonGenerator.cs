@@ -7,7 +7,8 @@ using UnityEngine;
 public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
 {
     // 스크립터블 오브젝트를 통해 던전 생성에 필요한 패러미터(한 번에 walk할 횟수, walk의 반복 횟수, startRandomlyEachIteration)를 가져옴.
-    [SerializeField] protected SimpleRandomWalkSO randomWalkParameters;
+    [SerializeField] 
+    protected SimpleRandomWalkSO randomWalkParameters;
 
     protected override void RunProceduralGeneration()
     {
@@ -36,7 +37,7 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
 
             // startRandomlyEachIteration 활성화시, 매 반복마다 walk 시작점을 갱신
             if (parameters.startRandomlyEachIteration)
-                curr = path.ElementAt(UnityEngine.Random.Range(0, path.Count)); 
+                curr = floorPositions.ElementAt(UnityEngine.Random.Range(0, floorPositions.Count)); 
         }
 
         return floorPositions;

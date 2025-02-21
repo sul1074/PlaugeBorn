@@ -37,5 +37,4 @@ public class AttackRange : MonoBehaviour // 평타 범위 관련 코드
         attackCollider.enabled = false; // 다시 비활성화
         Debug.Log("콜라이더 꺼짐");
     }
-
 }
