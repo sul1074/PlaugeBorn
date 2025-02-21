@@ -9,7 +9,6 @@ public class StatReward : MonoBehaviour
     private Player player;
     [SerializeField] public enum RewardType { // 보상 타입
         HpIncrease,
-        DefEnforce,
         ATKEnforce,
         SpeedUp,
     }
@@ -27,9 +26,6 @@ public class StatReward : MonoBehaviour
         switch (rewardType) {
             case RewardType.HpIncrease:
                 stat.playerHealth += amount;
-                break;
-            case RewardType.DefEnforce:
-                stat.playerDefence += amount;
                 break;
             case RewardType.ATKEnforce:
                 stat.playerATK += amount;
