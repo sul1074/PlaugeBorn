@@ -54,10 +54,10 @@ public class ItemPlacementHelper
     /// <param name="size">아이템 크기</param>
     /// <param name="addOffset">아이템이 차지할 공간의 여유 공간</param>
     /// <returns>배치 좌표 or null</returns>
-    public Vector2? GetItemPlacementPosition(PlacementType placementType, int iterationsMax, Vector2Int size, bool addOffset)
+    public Vector2? GetItemPlacementPosition(PlacementType placementType, int iterationsMax, Vector2 size, bool addOffset)
     {
         // 아이템의 크기가, 배치할 수 있는 면적보다 크면 놓을 수 없음.
-        int itemArea = size.x * size.y;
+        int itemArea = (int)Math.Ceiling(size.x * size.y);
         if (tileByType[placementType].Count < itemArea)
             return null;
 
@@ -95,13 +95,13 @@ public class ItemPlacementHelper
     /// <summary>
     /// 1x1 보다 큰 아이템을 배치할 공간이 충분한지 확인하고, 가능하면 좌표 리스트를 반환
     /// </summary>
-    private (bool, List<Vector2Int>) PlaceBigItem(Vector2Int originPos, Vector2Int size, bool addOffset)
+    private (bool, List<Vector2Int>) PlaceBigItem(Vector2Int originPos, Vector2 size, bool addOffset)
     {
         List<Vector2Int> positions = new List<Vector2Int>() { originPos };
 
         // offset 계산
-        int maxX = addOffset ? size.x + 1 : size.x;
-        int maxY = addOffset ? size.y + 1 : size.y;
+        int maxX = (int)Math.Ceiling(addOffset ? size.x + 1 : size.x);
+        int maxY = (int)Math.Ceiling(addOffset ? size.y + 1 : size.y);
         int minX = addOffset ? -1 : 0;
         int minY = addOffset ? -1 : 0;
 

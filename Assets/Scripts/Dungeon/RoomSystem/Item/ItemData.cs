@@ -8,14 +8,19 @@ using UnityEngine;
 [CreateAssetMenu]
 public class ItemData : ScriptableObject
 {
+    [SerializeField] private GameObject dropItem;
     [SerializeField] private Sprite sprite;
-    [SerializeField] private Vector2Int size = new Vector2Int(1, 1);
+    [SerializeField] private Vector2 size = new Vector2(1.0f, 1.0f);
     [SerializeField] private PlacementType placementType;
     [SerializeField] private bool addOffset;
     [SerializeField] private int health = 1;
     [SerializeField] private bool nonDestructible;
 
     // 프로퍼티 (Getter, Setter)
+    public GameObject DropItem
+    {
+        get { return dropItem; }
+    }
 
     public Sprite Sprite
     {
@@ -23,7 +28,7 @@ public class ItemData : ScriptableObject
         set => sprite = value;
     }
 
-    public Vector2Int Size
+    public Vector2 Size
     {
         get => size;
         set => size = value;

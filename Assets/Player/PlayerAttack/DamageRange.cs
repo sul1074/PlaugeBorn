@@ -8,7 +8,7 @@ public class DamageRange : playerDamage // 콜라이더 활성화 시 공격하�
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-    if (((1 << other.gameObject.layer) & enemyLayer) != 0 && other.CompareTag("Enemy"))
+        if (((1 << other.gameObject.layer) & enemyLayer) != 0 && other.CompareTag("Enemy"))
         {
             Debug.Log("적 감지, 공격");
             
@@ -27,5 +27,11 @@ public class DamageRange : playerDamage // 콜라이더 활성화 시 공격하�
             // 적에게 데미지 주는 함수 불러오기.
             other.GetComponent<IEnemyStats>().TakeHit(100);
         }
+
+        else if (other.gameObject.CompareTag("Item"))
+        {
+            other.gameObject.GetComponent<Item>().GetHit();
+        }
     }
+
 }

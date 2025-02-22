@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using Cinemachine;
 
 public class PlayerRoom : RoomGenerator
 {
@@ -14,6 +15,9 @@ public class PlayerRoom : RoomGenerator
 
     [SerializeField]
     private PrefabPlacer prefabPlacer;
+
+    [SerializeField]
+    private CinemachineVirtualCamera virtualCamera;
 
     /// <summary>
     /// 방의 중앙을 기준으로, 플레이어와 아이템을 배치하고 배치된 오브젝트들을 리스트로 반환
@@ -27,9 +31,15 @@ public class PlayerRoom : RoomGenerator
 
         // 플레이어는 방 중앙에 스폰
         Vector2Int playerSpawnPoint = roomCenter;
-
         // 중심에 배치하기 위해 0.5 오프셋 더해줌
         GameObject playerObject = prefabPlacer.CreateObject(player, playerSpawnPoint + new Vector2(0.5f, 0.5f));
+
+        virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+        // 카메라 플레이어 따라다니게 설정
+        if (virtualCamera != null)
+        {
+            virtualCamera.Follow = playerObject.transform;
+        }
 
         placedObjects.Add(playerObject);
 
