@@ -47,12 +47,19 @@ MonoBehaviour:
   player: {fileID: 5339246102110784747, guid: 867064e59a3161d418b9b61eb07f2235, type: 3}
   itemData:
   - minQuantity: 1
-    maxQuantity: 3
-    itemData: {fileID: 11400000, guid: b8adc671932c7a4478f2c617dd473dba, type: 2}
+    maxQuantity: 1
+    itemData: {fileID: 11400000, guid: 8ec16deaaa6e65647bb8e03c9a0e68ee, type: 2}
   - minQuantity: 1
     maxQuantity: 3
     itemData: {fileID: 11400000, guid: a29a7add1d2fc0c41ba4be8df82a0c96, type: 2}
+  - minQuantity: 2
+    maxQuantity: 5
+    itemData: {fileID: 11400000, guid: 736bb15fb277de146b520e4f85b9c677, type: 2}
+  - minQuantity: 2
+    maxQuantity: 4
+    itemData: {fileID: 11400000, guid: b4d3f67daf5793045bcc8c85b7f2c536, type: 2}
+  - minQuantity: 1
+    maxQuantity: 3
+    itemData: {fileID: 11400000, guid: b83a1137b9b1005428d1d846daca9f9f, type: 2}
   prefabPlacer: {fileID: 8498395350638450862, guid: ae1678f6b73b9f043950e0c97e923cfa,
-    type: 3}
-  virtualCamera: {fileID: 6422115123073981095, guid: 034bef6221af5d049b395cdd23148205,
     type: 3}

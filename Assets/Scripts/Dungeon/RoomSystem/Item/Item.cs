@@ -79,6 +79,8 @@ public class Item : MonoBehaviour
 
     private void DropItem()
     {
+        if (dropItem == null) return;
+
        float riseHeight = 0.5f;    // 떠오르는 높이
        float riseDuration = 0.5f; // 떠오르는 시간
        float dropDuration = 0.5f; // 떨어지는 시간
