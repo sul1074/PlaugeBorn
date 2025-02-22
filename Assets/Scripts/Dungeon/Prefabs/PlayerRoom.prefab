@@ -54,3 +54,5 @@ MonoBehaviour:
     itemData: {fileID: 11400000, guid: a29a7add1d2fc0c41ba4be8df82a0c96, type: 2}
   prefabPlacer: {fileID: 8498395350638450862, guid: ae1678f6b73b9f043950e0c97e923cfa,
     type: 3}
+  virtualCamera: {fileID: 6422115123073981095, guid: 034bef6221af5d049b395cdd23148205,
+    type: 3}

@@ -45,7 +45,8 @@ public class PrefabPlacer : MonoBehaviour
     {
         List<GameObject> placedObjects = new List<GameObject>();
 
-        IEnumerable<ItemPlacementData> sortedList = new List<ItemPlacementData>(itemPlacementData).OrderByDescending(placementData => placementData.ItemData.Size.x * placementData.ItemData.Size.y);
+        List<ItemPlacementData> sortedList = new List<ItemPlacementData>(itemPlacementData);
+        sortedList.Sort((a, b) => (b.ItemData.Size.x * b.ItemData.Size.y).CompareTo(a.ItemData.Size.x * a.ItemData.Size.y));
 
         foreach (ItemPlacementData placementData in sortedList)
         {

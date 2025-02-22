@@ -5,7 +5,10 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Item : MonoBehaviour
-{ 
+{
+    [SerializeField]
+    private GameObject dropItem;
+    
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
@@ -29,10 +32,17 @@ public class Item : MonoBehaviour
 
     public void Init(ItemData itemData)
     {
+        dropItem = itemData.DropItem;
         spriteRenderer.sprite = itemData.Sprite;
 
-        // sprite에 offset 설정
+        // 스프라이트의 실제 크기 가져오기
+        Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
+
+        // 스프라이트를 아이템 데이터 크기에 맞추기 위한 스케일 조정
+        spriteRenderer.transform.localScale = new Vector2(itemData.Size.x / spriteSize.x, itemData.Size.y / spriteSize.y);
+        // sprite의 위치 조정
         spriteRenderer.transform.localPosition = new Vector2(0.5f * itemData.Size.x, 0.5f * itemData.Size.y);
+
         itemCollider.size = itemData.Size;
         itemCollider.offset = new Vector2(spriteRenderer.transform.localPosition.x, itemData.Size.y);
 
@@ -50,14 +60,8 @@ public class Item : MonoBehaviour
         //    Instantiate(hitFeedback, spriteRenderer.transform.position, Quaternion.identity);
         //else
         //    Instantiate(destroyFeedback, spriteRenderer.transform.position, Quaternion.identity);
-        
-        // 흔들거리는 이펙트를 주고 체력을 감소
-        // spriteRenderer.transform.DOShakePosition(0.2f, 0.3f, 75, 1, false, true).OnComplete(ReduceHealth);
 
-        // 위치 흔들기 대신 크기 흔들기 적용
-        // spriteRenderer.transform.DOShakeScale(0.2f, 0.2f, 50, 90, true).OnComplete(ReduceHealth);
-
-        // 위치 흔들기 대신 회전 흔들기 적용
+        // 회전 흔들기 이펙트
         spriteRenderer.transform.DOShakeRotation(0.2f, new Vector3(0, 0, 20), 50, 90, true).OnComplete(ReduceHealth);
     }
 
@@ -68,7 +72,29 @@ public class Item : MonoBehaviour
         if (health <= 0)
         {
             spriteRenderer.transform.DOComplete();
+            DropItem();
             Destroy(gameObject);
+        }
+    }
+
+    private void DropItem()
+    {
+       float riseHeight = 0.5f;    // 떠오르는 높이
+       float riseDuration = 0.5f; // 떠오르는 시간
+       float dropDuration = 0.5f; // 떨어지는 시간
+
+        // 나중에 드롭 아이템별 확률 정해서 해야 함
+        if ((int)Random.Range(0, 6) >= 0)
+        {
+            GameObject dropped = Instantiate(dropItem, spriteRenderer.transform.position, Quaternion.identity);
+            Sequence dropSequence = DOTween.Sequence();
+
+            // 드롭 애니메이션 적용
+            dropSequence
+                .Append(dropped.transform.DOMoveY((spriteRenderer.transform.position.y + spriteRenderer.size.y * 0.5f) + riseHeight, riseDuration)
+                    .SetEase(Ease.OutSine)) // 상자에서 위로 부드럽게 떠오름
+                .Append(dropped.transform.DOMoveY(spriteRenderer.transform.position.y, dropDuration)
+                    .SetEase(Ease.OutQuad)); // 다시 상자 위치로 내려옴
         }
     }
 }

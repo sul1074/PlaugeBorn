@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81d3cdfadd3c7f4caa66c7a124d4dea, type: 3}
   m_Name: chest
   m_EditorClassIdentifier: 
+  dropItem: {fileID: 6738338064856539910, guid: 8f0c9687886dbab4fb6b6204f69bf9a2,
+    type: 3}
   sprite: {fileID: 21300000, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
-  size: {x: 1, y: 1}
+  size: {x: 0.5, y: 0.5}
   placementType: 0
   addOffset: 0
   health: 3
