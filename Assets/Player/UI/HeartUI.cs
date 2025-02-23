@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class HeartUI : MonoBehaviour
 {
     private Stat stat;
+    private Player player;
     [SerializeField] private Image[] heartImages;
     [SerializeField] private Sprite fullheart;
     [SerializeField] private Sprite emptyheart;
 
     void Awake() {
-        stat = FindObjectOfType<Stat>();
+        stat = player.GetComponent<Stat>();
     }
 
     void Update()
