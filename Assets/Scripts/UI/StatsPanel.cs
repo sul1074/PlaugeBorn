@@ -8,57 +8,55 @@ using UnityEngine.UI;
 public class StatsPanel : PanelBase
 {
     [Header("플레이어의 스탯")]
-    [SerializeField] private TextMeshProUGUI hpValue;
     [SerializeField] private TextMeshProUGUI attackPowerValue;
-    [SerializeField] private TextMeshProUGUI armorValue;
     [SerializeField] private TextMeshProUGUI speedValue;
+
+    private Stat playerStat;
+
+    public Stat PlayerStat
+    {
+        set { playerStat = value; }
+    }
 
     private void Awake()
     {
-        InputManager.OnStatsPressed += TogglePanel;
+        EventManager.OnStatsPressed += TogglePanel;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        UpdateStats();
         gameObject.SetActive(false);
     }
     protected override void OnShow()
     {
-        Debug.Log("스탯 패널이 열렸습니다!");
-        // 사운드, 에니메이션 추가 가능
+        UpdateStats();
     }
     protected override void OnHide()
     {
-        Debug.Log("스탯 패널이 닫혔습니다!");
+        
     }
 
-    private void WriteHpValueText(int value)
-    {
-        hpValue.text = value.ToString();
-    }
-
-    private void WriteAttackPowerValueText(int value)
+    private void WriteAttackPowerValueText(float value)
     {
         attackPowerValue.text = value.ToString();
     }
 
-    private void WriteArmorValueText(int value)
-    {
-        armorValue.text = value.ToString();
-    }
-
-    private void WriteSpeedValueText(int value)
+    private void WriteSpeedValueText(float value)
     {
         speedValue.text = value.ToString();
     }
 
     public void UpdateStats()
     {
-        WriteHpValueText(StatsManager.Instance.Hp);
-        WriteAttackPowerValueText(StatsManager.Instance.AttackPower);
-        WriteArmorValueText(StatsManager.Instance.Armor);
-        WriteSpeedValueText(StatsManager.Instance.Speed);
+        if (playerStat == null)
+        {
+            Debug.LogError("플레이어 Stat 가져오지 못함.");
+
+            return;
+        }
+
+        WriteAttackPowerValueText(playerStat.playerATK);
+        WriteSpeedValueText(playerStat.playerSpeed);
     }
 }

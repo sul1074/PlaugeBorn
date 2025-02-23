@@ -9,7 +9,7 @@ public class PausePanel : PanelBase
     // Awake에서 이벤트를 등록해주고 Start에서 오브젝트 비활성화 시키기
     private void Awake()
     {
-        InputManager.OnPausePressed += TogglePanel;
+        EventManager.OnPausePressed += TogglePanel;
     }
     private void Start()
     {
@@ -27,13 +27,11 @@ public class PausePanel : PanelBase
 
     protected override void OnShow()
     {
-        Debug.Log("게임 중단시의 패널이 열렸습니다!");
-        Time.timeScale = 0f; 
+        Time.timeScale = 0f;
     }
 
     protected override void OnHide()
     {
-        Debug.Log("게임 중단시의 패널이 닫혔습니다!");
-        Time.timeScale = 1f;  
+        Time.timeScale = 1f;
     }
 }

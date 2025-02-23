@@ -16,7 +16,6 @@ public class PlayerRoom : RoomGenerator
     [SerializeField]
     private PrefabPlacer prefabPlacer;
 
-    [SerializeField]
     private CinemachineVirtualCamera virtualCamera;
 
     /// <summary>

@@ -31,7 +31,7 @@ public class ButtonClickHandler : MonoBehaviour
         switch (buttonName)
         {
             case "StartButton":
-                SceneController.Instance.LoadScene("Main");
+                SceneController.LoadScene("Dungeon");
                 break;
             case "ExitButton":
                 Application.Quit();
@@ -41,7 +41,7 @@ public class ButtonClickHandler : MonoBehaviour
                 Debug.Log("상점 입장");
                 break;
             case "TitleButton":
-                SceneController.Instance.LoadScene("Title");
+                SceneController.LoadScene("Title");
                 break;
             case "ResumeButton":
                 // PanelPanel에서 구현

@@ -59,5 +59,23 @@ MonoBehaviour:
     enemySize: {x: 1, y: 1}
   itemData:
   - minQuantity: 1
-    maxQuantity: 4
+    maxQuantity: 2
     itemData: {fileID: 11400000, guid: a29a7add1d2fc0c41ba4be8df82a0c96, type: 2}
+  - minQuantity: 1
+    maxQuantity: 3
+    itemData: {fileID: 11400000, guid: b83a1137b9b1005428d1d846daca9f9f, type: 2}
+  - minQuantity: 1
+    maxQuantity: 2
+    itemData: {fileID: 11400000, guid: a29a7add1d2fc0c41ba4be8df82a0c96, type: 2}
+  - minQuantity: 1
+    maxQuantity: 4
+    itemData: {fileID: 11400000, guid: 2096d5d98aa135d46b39f5bbf6f965a2, type: 2}
+  - minQuantity: 2
+    maxQuantity: 4
+    itemData: {fileID: 11400000, guid: 736bb15fb277de146b520e4f85b9c677, type: 2}
+  - minQuantity: 0
+    maxQuantity: 2
+    itemData: {fileID: 11400000, guid: 7e3fcbb8868510040923ebd819aa1237, type: 2}
+  - minQuantity: 1
+    maxQuantity: 3
+    itemData: {fileID: 11400000, guid: b4d3f67daf5793045bcc8c85b7f2c536, type: 2}
