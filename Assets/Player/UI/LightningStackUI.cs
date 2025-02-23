@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LightningStackUI : MonoBehaviour // 벽력일섬 스택 표시 UI 스크립트
 {
+
     [SerializeField] private Image[] stackImages;
     private int maxStacks = 3;
 
