@@ -1,7 +1,14 @@
 # PlaugeBorn
-2D 탑다운 로그라이크 게임입니다. 구현을 맡은 절차적 맵 생성에 대한 구조 및 동작 방식을 다룹니다.
+2D 탑다운 로그라이크 게임입니다. 구현을 맡은 절차적 맵 생성 시스템의 구조와 동작 방식을 설명합니다.
+
+<br><br>
 
 ## <대략적인 파일 구조>
+모듈은 크게 다음과 같은 세 영역으로 나뉩니다:
+- 던전 생성 (Dungeon): 던전 생성 알고리즘, 지도 시각화, 벽 배치 등
+- 경로 계산 (DicisionSystem): 방 간 거리 계산을 위한 그래프 기반 경로 탐색
+- 방 컨텐츠 배치 (RoomSystem): 방 종류 설정, 아이템 및 적 배치
+---
 
     📂Dungeon
      ├─ 📄 AbstractDungeonGenerator.cs - 던전 생성의 기본 인터페이스
@@ -33,9 +40,9 @@
          ├─ 📄 Item.cs - 아이템 정보를 가지고 있는 클래스.
          ├─ 📄 ItemPlacementHelper.cs - 던전 내 특정 타입 바닥 좌표가, 아이템을 배치할 수 있는 좌표인지 체크하고 배치할 수 있는 좌표를 반환하는 클래스
 
+<br><br>
 
-
-## <던전 생성 과정 요약>
+## <던전 생성 과정>
 #### 1. 게임 시작 (MapRuntimeGenerator → OnStart 이벤트 발생)
   - OnStart에 CorridorFirstDungeonGenerator.GenerateDungeon()이 연결됨
   - CorridorFirstDungeonGenerator가 던전 생성 시작
@@ -47,17 +54,20 @@
 #### 3. 방 세부 설정 (RoomContentGenerator.GenerateRoomContent(dungeonData))
   - 방의 종류 결정(플레이어 방, 전투 방, 보스 방 등)
   - 방 종류에 따른 아이템, 적, 플레이어 배치
+---
 
+<br><br>
 
-
-## <방 내 오브젝트 배치 과정 요약>
+## <방 내 오브젝트 배치 과정>
 #### 1. 던전 생성이 완료되면, RoomContentGenerator의 GenerateRoomContent(dungeonData) 함수 호출
 #### 2. 방들 중에서 랜덤으로 플레이어 방을 선택하고, 플레이어 방을 시작으로 다익스트라 알고리즘 수행.
 #### 3. 플레이어 방 프리펩에 저장되어 있는 정보(배치될 오브젝트)를 토대로 오브젝트를 배치.
 #### 4. 다익스트라 결과를 통해, 플레이어 방에서 이동하는 데 있어 가장 비용이 큰 방을 보스 방으로 선택.
 #### 5. 보스 방 프리펩에 저장되어 있는 정보를 토대로 오브젝트 배치.
 #### 6. 나머지 방들은 전투 방으로 간주하고, 전투 방 프리펩에 있는 정보를 토대로 오브젝트를 배치.
+---
 
+<br><br>
 
 ## <오브젝트 배치 세부 흐름>
 ### 1. 방에 대해, ItemPlacementHelper 객체 생성.
