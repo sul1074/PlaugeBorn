@@ -1,5 +1,7 @@
 # PlaugeBorn
-2D 탑다운 로그라이크 게임입니다. 구현을 맡은 **`절차적 맵 생성`** 시스템의 구조와 동작 방식을 설명합니다.
+> ### PlagueBorn의 절차적 맵 생성 시스템**은 복도와 방으로 구성된 던전을 동적으로 생성하고, 방 종류(플레이어 방, 보스 방, 전투 방)를 설정한 후, 스크립터블 오브젝트를 활용해 아이템과 적을 배치하여 도전적인 로그라이크 던전을 완성합니다.
+
+아래는 구현을 맡은 **`절차적 맵 생성`** 시스템의 구조와 동작 방식을 설명합니다. 
 
 <br><br>
 
@@ -78,3 +80,24 @@
   - 배치할 수 있는 타일 좌표가 계산되면, 해당 좌표에 아이템 prefab을 인스턴스화.
   - 이 때, 프리펩은 itemData 스크립터블 오브젝트에 저장되어 있는 Sprite와 Size로 초기화 됨.
   - 즉, 아이템 별 프리펩으로 정보를 관리하는게 아니라, 스크립터블 오브젝트로 관리하고 이 정보를 하나의 프리펩에 덮어 씌우면서 생성하는 것.
+---
+
+<br><br>
+
+## <전체 흐름 플로우차트>
+
+```mermaid
+flowchart TD
+    A[게임 시작<br>MapRuntimeGenerator] --> B[던전 생성<br>CorridorFirstDungeonGenerator]
+    B --> C[dungeonData 생성<br>DungeonData]
+    C --> D[방 콘텐츠 생성<br>RoomContentGenerator]
+    D --> E1[플레이어 방 선택<br>PlayerRoom<br>랜덤 설정]
+    D --> E2[보스 방 결정<br>BossRoom<br>다익스트라 알고리즘 기반]
+    D --> E3[전투 방 설정<br>FightingPitRoom<br>]
+    E1 --> F1[ItemPlacementHelper<br>타일 분류]
+    E2 --> F2[ItemPlacementHelper<br>타일 분류]
+    E3 --> F3[ItemPlacementHelper<br>타일 분류]
+    F1 --> G1[PrefabPlacer<br>프리펩 배치]
+    F2 --> G2[PrefabPlacer<br>프리펩 배치]
+    F3 --> G3[PrefabPlacer<br>프리펩 배치]
+```
