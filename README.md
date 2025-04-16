@@ -8,7 +8,7 @@
 ## <파일 구조>
 모듈은 크게 다음과 같은 세 영역으로 나뉩니다:
 - 던전 생성 **`(Dungeon)`**: 던전 생성 알고리즘, 지도 시각화, 벽 배치 등
-- 경로 계산 **`(DicisionSystem)`**: 방 간 거리 계산을 위한 그래프 기반 경로 탐색
+- 경로 계산 **`(DecisionSystem)`**: 방 간 거리 계산을 위한 그래프 기반 경로 탐색
 - 방 컨텐츠 배치 **`(RoomSystem)`**: 방 종류 설정, 아이템 및 적 배치
 ---
 
@@ -23,7 +23,7 @@
      ├─ 📄 WallTypesHelper.cs - 방향별 벽 배치를 위한 비트 기반 데이터 정의
      ├─ 📄 WallGenerator.cs - 적절한 위치에 방향에 맞는 벽 생성
     
-      📂 Dungeon/DicisionSystem
+      📂 Dungeon/DecisionSystem
        ├─ 📄 DijkstraAlgorithm.cs - 시작 방에 대해 다익스트라 알고리즘을 수행해서, 다른 방들로 가는 비용을 계산
        ├─ 📄 Graph.cs - 2D 벡터 리스트를 그래프로 초기화하여 인접 정점 탐색
        ├─ 📄 GraphTest.cs - 플레이어 방의 좌표를 시작으로, 다른 방의 바닥 좌표들 간에 다익스트라 알고리즘을 통해 비용을 계산
