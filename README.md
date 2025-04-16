@@ -11,34 +11,34 @@
 ---
 
     📂Dungeon
-     ├─ 📄 AbstractDungeonGenerator.cs - 던전 생성의 기본 인터페이스
-     ├─ 📄 ProceduralGenerationAlgo.cs - Random Walk, Binary Space Partitioning, 방향 벡터 계산 등 던전 생성에 필요한 알고리즘을 제공하는 클래스
+     ├─ 📄 AbstractDungeonGenerator.cs - 던전 생성의 추상 인터페이스를 정의하여 알고리즘 표준화
+     ├─ 📄 ProceduralGenerationAlgo.cs - Random Walk, Binary Space Partitioning, 방향 벡터 계산 등 던전 생성에 필요한 알고리즘을 제공
      ├─ 📄 MapRuntimeGenerator.cs - 게임 시작 시, 던전을 생성하도록 이벤트를 발생 시키는 클래스.
      ├─ 📄 SimpleRandomWalkDungeonGenerator.cs - 단순 랜덤 워크 단일 던전 생성
      ├─ 📄 CorridorFirstDungeonGenerator.cs - 복도를 먼저 생성하고 방을 생성해서, 방들이 복도와 연결되어 있는 구조(프로젝트에 사용할 구조)
      ├─ 📄 RoomFirstDungeonGenerator.cs - BSP를 통해 공간을 분할 후, 각각의 분할된 공간에 방을 생성하고 복도로 연결하는 구조
      ├─ 📄 TilemapVisualizer.cs - 좌표에 타일을 배치하여, 던전을 시각화
-     ├─ 📄 WallTypesHelper.cs - 방향에 맞는 벽을 배치하기 위해, 방향에 맞는 2진수 비트 정보를 정의해놓은 클래스
-     ├─ 📄 WallGenerator.cs - 벽이 세워져야 할 알맞은 위치에, 방향에 맞는 벽을 생성
+     ├─ 📄 WallTypesHelper.cs - 방향별 벽 배치를 위한 비트 기반 데이터 정의
+     ├─ 📄 WallGenerator.cs - 적절한 위치에 방향에 맞는 벽 생성
     
       📂 Dungeon/DicisionSystem
-       ├─ 📄 DijkstraAlgorithm.cs - 시작 방에 대해 다익스트라 알고리즘을 수행해서, 다른 방들로 가는 비용을 계산하는 클래스.
-       ├─ 📄 Graph.cs - 2차원 벡터 리스트에 대해 그래프로 초기화해서, 인접 정점을 찾을 수 있도록 하는 클래스.
-       ├─ 📄 GraphTest.cs - 플레이어 방의 좌표를 시작으로, 다른 방의 바닥 좌표들 간에 다익스트라 알고리즘을 수행해서 비용을 계산하는 클래스.
+       ├─ 📄 DijkstraAlgorithm.cs - 시작 방에 대해 다익스트라 알고리즘을 수행해서, 다른 방들로 가는 비용을 계산
+       ├─ 📄 Graph.cs - 2D 벡터 리스트를 그래프로 초기화하여 인접 정점 탐색
+       ├─ 📄 GraphTest.cs - 플레이어 방의 좌표를 시작으로, 다른 방의 바닥 좌표들 간에 다익스트라 알고리즘을 통해 비용을 계산
     
       📂 Dungeon/RoomSystem
        ├─ 📄 RoomGenerator.cs - 방을 생성하는 기본 함수 ProcessRoom 오버라이딩을 위한 추상 클래스. 해당 방에, 방 프리펩에 저장되어 있는 정보를 토대로 오브젝트를 배치하고 배치한 오브젝트 목록을 리스트로 반환.
        ├─ 📄 DungeonData.cs - 던전의 데이터를 관리하는 클래스.(던전 내 방 목록, 복도 좌표, 바닥 좌표, 복도 제외한 방 좌표를 얻는 함수 등)
        ├─ 📄 RoomContentGenerator.cs - 방의 컨텐츠를 생성하는 클래스.
-       ├─ 📄 PrefabPlacer.cs - 프리펩을 배치가능한 좌표에 배치하는 클래스.
+       ├─ 📄 PrefabPlacer.cs - 프리펩을 배치가능한 좌표에 인스턴스화 하는 클래스.
        ├─ 📄 PlayerRoom.cs - 처음 시작 하는 방. 즉, 플레이어가 처음에 위치할 방에 플레이어와 아이템을 배치하는 클래스.
        ├─ 📄 BoosRoom.cs - 보스 방에 보스 등 오브젝트를 배치하는 클래스.
        ├─ 📄 FightingPitRoom.cs - 전투가 주 컨텐츠가 되는 방에 아이템과 적을 배치하는 클래스.
     
         📂 Dungeon/RoomSystem/Item
          ├─ 📄 ItemData.cs - 아이템별 데이터를 저장하고 있는 스크립터블 오브젝트
-         ├─ 📄 Item.cs - 아이템 정보를 가지고 있는 클래스.
-         ├─ 📄 ItemPlacementHelper.cs - 던전 내 특정 타입 바닥 좌표가, 아이템을 배치할 수 있는 좌표인지 체크하고 배치할 수 있는 좌표를 반환하는 클래스
+         ├─ 📄 Item.cs - 아이템 정보 관리 클래스.
+         ├─ 📄 ItemPlacementHelper.cs - 아이템 배치 가능 좌표를 계산 및 반환하는 클래스.
 
 <br><br>
 
