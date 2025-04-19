@@ -5,7 +5,7 @@
 
 <br><br>
 
-## <파일 구조>
+## 파일 구조
 모듈은 크게 다음과 같은 세 영역으로 나뉩니다:
 - 던전 생성 **`(Dungeon)`**: 던전 생성 알고리즘, 지도 시각화, 벽 배치 등
 - 경로 계산 **`(DecisionSystem)`**: 방 간 거리 계산을 위한 그래프 기반 경로 탐색
@@ -44,7 +44,7 @@
 
 <br><br>
 
-## <던전 생성 과정>
+## 던전 생성 과정
 #### 1. 게임 시작 (MapRuntimeGenerator → OnStart 이벤트 발생)
   - OnStart에 CorridorFirstDungeonGenerator.GenerateDungeon()이 연결됨
   - CorridorFirstDungeonGenerator가 던전 생성 시작
@@ -60,26 +60,26 @@
 
 <br><br>
 
-## <방 내 오브젝트 배치 과정>
-#### 1. 던전 생성이 완료되면, RoomContentGenerator의 GenerateRoomContent(dungeonData) 함수 호출
-#### 2. 방들 중에서 랜덤으로 플레이어 방을 선택하고, 플레이어 방을 시작으로 다익스트라 알고리즘 수행.
-#### 3. 플레이어 방 프리펩에 저장되어 있는 정보(배치될 오브젝트)를 토대로 오브젝트를 배치.
-#### 4. 다익스트라 결과를 통해, 플레이어 방에서 이동하는 데 있어 가장 비용이 큰 방을 보스 방으로 선택.
-#### 5. 보스 방 프리펩에 저장되어 있는 정보를 토대로 오브젝트 배치.
-#### 6. 나머지 방들은 전투 방으로 간주하고, 전투 방 프리펩에 있는 정보를 토대로 오브젝트를 배치.
----
+## 오브젝트 배치 과정
+### 전체 흐름
+#### 1. RoomContentGenerator.GenerateRoomContent(dungeonData) 호출.
+#### 2. 랜덤으로 플레이어 방 선택 후, 다익스트라 알고리즘으로 방 간 경로 비용 계산.
+#### 3. 플레이어 방 프리펩 정보를 바탕으로 오브젝트 배치.
+#### 4. 다익스트라 결과를 통해 플레이어 방에서 가장 멀리 있는 방을 보스 방으로 선택.
+#### 5. 보스 방 프리펩 정보를 바탕으로 오브젝트 배치.
+#### 6. 나머지 방을 전투 방으로 간주하고 프리펩 정보를 바탕으로 오브젝트 배치.
 
-<br><br>
+<br>
 
-## <오브젝트 배치 세부 흐름>
-### 1. 방에 대해, ItemPlacementHelper 객체 생성.
+### 세부 흐름
+#### 1. 방에 대해, ItemPlacementHelper 객체 생성.
   - 방의 바닥 타일 좌표를 받아서, 좌표들을 OpenSpace 혹은 NearWall 타입으로 분류.
 
-### 2. 방 프리펩에 저장되어 있는 아이템 정보를 넘겨주어, PrefabPlacer의 PlaceAllItems 함수 호출.
+#### 2. 방 프리펩에 저장되어 있는 아이템 정보를 넘겨주어, PrefabPlacer의 PlaceAllItems 함수 호출.
   - 전달받은 아이템을 배치할 수 있는 타일 좌표를 ItemPlacementHelper가 계산. 아이템 배치 위치가 NearWall인지 OpenSpace인지에 따라서 별도 계산.
   - 배치할 수 있는 타일 좌표가 계산되면, 해당 좌표에 아이템 prefab을 인스턴스화.
   - 이 때, 프리펩은 itemData 스크립터블 오브젝트에 저장되어 있는 Sprite와 Size로 초기화 됨.
-  - 즉, 아이템 별 프리펩으로 정보를 관리하는게 아니라, 스크립터블 오브젝트로 관리하고 이 정보를 하나의 프리펩에 덮어 씌우면서 생성하는 것.
+  - 아이템별 프리펩을 따로 관리하지 않고, 스크립터블 오브젝트로 정보를 관리해 하나의 프리펩에 덮어씌움.
 ---
 
 <br><br>
@@ -96,8 +96,8 @@ flowchart TD
     subgraph 방 종류 설정
         D ==> E1[플레이어 방 선택<br>PlayerRoom<br>랜덤 선택]
         E1 ==> E2[다익스트라 수행<br>DecisionSystem<br>경로 비용 계산]
-        E2 ==> E3[보스 방 결정<br>BossRoom<br>최원 방 선택]
-        E3 ==> E4[전투 방 설정<br>FightingPitRoom<br>나머지 방 설정]
+        E2 ==> E3[보스 방 결정<br>BossRoom<br>가장 먼 방 선택]
+        E3 ==> E4[전투 방 설정<br>FightingPitRoom<br>나머지 방들]
     end
     subgraph 오브젝트 배치
         E1 -.-> F1[ItemPlacementHelper<br>타일 분류]
