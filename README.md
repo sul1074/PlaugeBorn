@@ -88,17 +88,23 @@
 
 ```mermaid
 flowchart TD
-    A[게임 시작<br>MapRuntimeGenerator] --> B[던전 생성<br>CorridorFirstDungeonGenerator]
-    B --> C[dungeonData 생성<br>DungeonData]
-    C --> D[방 콘텐츠 생성<br>RoomContentGenerator]
-    D --> E1[플레이어 방 선택<br>PlayerRoom<br>랜덤 설정]
-    E1 --> E2[다익스트라 수행<br>DecisionSystem<br>방 간 경로 비용 계산]
-    E2 --> E3[보스 방 결정<br>BossRoom<br>가장 멀리 있는 방 선택]
-    E3 --> E4[전투 방 설정<br>FightingPitRoom<br>나머지 방 지정]
-    E1 --> F1[ItemPlacementHelper<br>타일 분류]
-    E3 --> F2[ItemPlacementHelper<br>타일 분류]
-    E4 --> F3[ItemPlacementHelper<br>타일 분류]
-    F1 --> G1[PrefabPlacer<br>프리펩 배치]
-    F2 --> G2[PrefabPlacer<br>프리펩 배치]
-    F3 --> G3[PrefabPlacer<br>프리펩 배치]
+    subgraph 초기화
+        A([게임 시작<br>MapRuntimeGenerator]) ==> B[던전 생성<br>CorridorFirstDungeonGenerator]
+        B ==> C[dungeonData 생성<br>DungeonData]
+        C ==> D[방 콘텐츠 생성<br>RoomContentGenerator]
+    end
+    subgraph 방 종류 설정
+        D ==> E1[플레이어 방 선택<br>PlayerRoom<br>랜덤 선택]
+        E1 ==> E2[다익스트라 수행<br>DecisionSystem<br>경로 비용 계산]
+        E2 ==> E3[보스 방 결정<br>BossRoom<br>최원 방 선택]
+        E3 ==> E4[전투 방 설정<br>FightingPitRoom<br>나머지 방 설정]
+    end
+    subgraph 오브젝트 배치
+        E1 -.-> F1[ItemPlacementHelper<br>타일 분류]
+        E3 -.-> F2[ItemPlacementHelper<br>타일 분류]
+        E4 -.-> F3[ItemPlacementHelper<br>타일 분류]
+        F1 --> G1([PrefabPlacer<br>프리펩 배치])
+        F2 --> G2([PrefabPlacer<br>프리펩 배치])
+        F3 --> G3([PrefabPlacer<br>프리펩 배치])
+    end
 ```
